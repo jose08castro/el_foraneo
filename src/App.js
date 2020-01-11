@@ -1,7 +1,7 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 
+/*
 function App() {
   return (
     <div className="App">
@@ -22,5 +22,53 @@ function App() {
     </div>
   );
 }
+*/
 
+class App extends Component{
+
+  constructor(props) {
+		super(props)
+		this.state = {
+      usuarios : [],
+      usuario : '',
+      password : ''
+    };
+	}
+
+  async componentDidMount(){
+    let resp = await fetch('/api/usuarios');
+    let usuarios = await resp.json();
+    this.setState({usuarios : usuarios.usuarios})
+  }
+
+  renderUsuario = ({usuario, nombre, apellidos}) => <div key = {usuario}>{nombre} {apellidos}</div>
+
+  changeHandler = (e) => {
+    this.setState({[e.target.name]:[e.target.value]})
+  }
+
+
+
+  render(){
+    const { usuarios, usuario, password} = this.state;
+    return(
+      <div className="App">
+        {usuarios.map(this.renderUsuario)} 
+        <div>
+        <form method="POST" action="/api/login">
+          <div>
+            <input type='text' name='usuario' value={usuario} onChange={this.changeHandler}/>
+          </div>
+          <div>
+            <input type='password' name='password' value={password} onChange={this.changeHandler}/>
+          </div>
+          <button type="submit">submit</button>
+        </form>
+      </div>
+      </div>
+    )
+  }
+  
+
+}
 export default App;
