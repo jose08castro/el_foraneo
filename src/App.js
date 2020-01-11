@@ -1,14 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
 import logoEF from './images/logo.png';
 import './App.css';
+import App2 from './App2.js';
+import ReactDOM from 'react-dom';
+
 class App extends React.Component {
   iniciarSesion() {
+    ReactDOM.render(<App2 />, document.getElementById('root'));
   }
 
   render() {
     return (
-      <div className="App">
+      <div id="App" className="App">
         <div className="Barra">
           <img src={logoEF} className="ElForaneo" alt="El Foráneo" />
           <h1>El Foráneo</h1>
@@ -20,9 +23,9 @@ class App extends React.Component {
             </div>
             <div className="InteriorCuadro">
               <form>
-                <input className="Campo" type="text" id="inputUser" placeholder="Username" required></input>
+                <input className="Campo" type="text" id="inputUserR" placeholder="Username" required></input>
                 <br />
-                <input className="Campo" type="text" id="inputPass" placeholder="Password" required></input>
+                <input className="Campo" type="text" id="inputPassR" placeholder="Password" required></input>
                 <br />
                 <button className="Boton" onClick={this.iniciarSesion}>Iniciar Sesión</button>
               </form>
