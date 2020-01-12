@@ -1,0 +1,153 @@
+.App {
+    text-align: center;
+    
+  }
+  
+  .App-header {
+    background: #faeeae;
+    height: 85vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .Barra {
+    background: #9B0000;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* align-items: center; */
+    color: white;
+    /* padding-left: 100px; */
+    height: 10vh;
+  }
+
+  .BarraInicio{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      float: left;
+      left: 0;
+  }
+  
+  .iconos {
+    height: 30px;
+    margin: 0px 20px;
+  
+}
+
+  .barraIconos{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+     
+  }
+  
+  .ElForaneo {
+    height: 30px;
+    margin: 0px 20px;
+    /* align-items: flex-start; */
+  }
+
+
+  .BarraBusqueda{
+      display: flex;
+      align-items: center;
+      /* background-color: #E18737; */
+  }
+
+  .CuadroReg {
+    display: flex;
+    flex-direction: column;
+    height: 450px;
+    width: 35vw;
+    border-radius: 30px;
+    background: #1E332B;
+    margin: 0px 5vw;
+  }
+  .CuadroRecetas{
+
+    display: flex;
+    flex-direction: column;
+
+  }
+  .Superior {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    justify-content: space-between;
+    height: 70px;
+    border-radius: 30px 30px 0px 0px;
+    background: #E18737;
+  }
+  .ButonGenerar{
+      background-color: #1E332B;
+      border-radius: 30px 30px 30px 30px;
+      height: 7vh;
+      width: 12vw;
+      margin: 1vh;
+      border-style: none;
+      color: white;
+    
+
+
+
+  }
+  .InteriorCuadro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 270px;
+  }
+  
+  .InteriorCuadro2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 380px;
+    background-color: #1E332B;
+  }
+  .CustomToggle a {
+      background-color: #E18737;
+      color: #faeeae;
+      border-color: black;
+      
+  }
+  .Campo {
+    font-family: Halant;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    border-radius: 30px;
+    padding: 4px;
+    margin: 15px 0px;
+    width: 15vw;
+  }
+  
+  .Boton {
+    font-family: Halant;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    border-radius: 30px;
+    width: 110px;
+    height: 34px;
+    background: #E18737;
+    color: white;
+  }
+  
+  .Subtitulo {
+    margin-left: 35px;
+    font-family: Halant;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 23px;
+    color: white;
+  }
