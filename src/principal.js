@@ -9,6 +9,7 @@ import logoCompartir from './images/compartir.png';
 import Dropdown from 'react-bootstrap/Dropdown'
 
 import FotoPasta from './images/pasta.png'
+import FotoChifrijo from './images/chifrijo.png'
 
 
 import './principal.css';
@@ -108,8 +109,8 @@ class App extends React.Component {
                                 <div className="Info">
                                     <img src={logoUsuario} className="iconos" alt="Notificaciones" />
                                     <div className="tiempo" >
-                                        <label> Nombre Usuario </label>
-                                        <label> 45 min </label>
+                                        <label id="NombreUsuarioReceta"> Nombre Usuario </label>
+                                        <label id="TiempoReceta"> 45 min </label>
                                     </div>
                                 </div>
                                 <div className="barraIconosReceta">
@@ -119,11 +120,20 @@ class App extends React.Component {
                             </div>
                             <div className="CuerpoReceta">
                                 <div className="FotoReceta">
-                                    <img src={FotoPasta} className="FotoReceta1" alt="El Foráneo" />
+                                    <img src={FotoPasta} className="TamanoFoto" alt="El Foráneo" />
                                 </div>
                                 <div className="PasosReceta">
                                     <div className="Instrucciones">
                                         <p>
+                                            <h1 id="NombreReceta"> Pasta Carbonara</h1>
+                                            <label id="Ingredientes">
+                                                <ul>
+                                                <li>Tomate</li>
+                                                <li>Chile Dulce</li>
+                                                <li>Cebolla</li>
+                                                </ul>
+                                            </label>
+                                            <p>
                                             Aqui van los pasos de la receta
                                             Aqui van los pasos de la receta
                                             Aqui van los pasos de la receta
@@ -159,7 +169,8 @@ class App extends React.Component {
                                             Aqui van los pasos de la receta
                                             Aqui van los pasos de la receta
                                             Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
+                                            </p>
+                                            <label id="PrecioReceta">Precio estimado</label>
                                     </p>
                                     </div>
                                 </div>
@@ -176,6 +187,9 @@ class App extends React.Component {
 
                             </div>
                         </div>
+
+
+
                     </div>
                     <div className="Favoritos">
 
