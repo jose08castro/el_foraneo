@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
+import logoBN from './images/logoBN.png';
 import logoEF from './images/logo.png';
 import logoExplorar from './images/explore.png';
 import logoNotificaciones from './images/favorite.png';
@@ -180,9 +181,9 @@ class App extends React.Component {
                                 <div className="Calificaciones">
                                     <img src={logoEF} className="iconos" alt="El Foráneo" />
                                     <img src={logoEF} className="iconos" alt="El Foráneo" />
-                                    <img src={logoEF} className="iconos" alt="El Foráneo" />
-                                    <img src={logoEF} className="iconos" alt="El Foráneo" />
-                                    <img src={logoEF} className="iconos" alt="El Foráneo" />
+                                    <img src={logoBN} className="iconos" alt="El Foráneo" />
+                                    <img src={logoBN} className="iconos" alt="El Foráneo" />
+                                    <img src={logoBN} className="iconos" alt="El Foráneo" />
                                 </div>
 
                             </div>
