@@ -76,8 +76,7 @@
 }
 
 .Campo {
-  font-family: Halant;
-  font-style: normal;
+  font-style: italic;
   font-weight: normal;
   font-size: 14px;
   border-radius: 30px;
@@ -87,8 +86,7 @@
 }
 
 .Boton {
-  font-family: Halant;
-  font-style: normal;
+  font-style: italic;
   font-weight: normal;
   font-size: 14px;
   border-radius: 30px;
@@ -96,13 +94,14 @@
   height: 34px;
   background: #E18737;
   color: white;
+  border-style: none;
 }
 
 .Subtitulo {
   margin-left: 35px;
-  font-family: Halant;
   font-style: normal;
-  font-weight: bold;
   font-size: 23px;
   color: white;
+  font-weight: bold;
+  border-radius: 30px;
 }
