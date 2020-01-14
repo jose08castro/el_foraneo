@@ -1,12 +1,12 @@
 import React from 'react';
 import logoEF from './images/logo.png';
 import './App.css';
-import App2 from './App2.js';
+import Principal from './principal.js';
 import ReactDOM from 'react-dom';
 
 class App extends React.Component {
   iniciarSesion() {
-    ReactDOM.render(<App2 />, document.getElementById('root'));
+    ReactDOM.render(<Principal />, document.getElementById('root'));
   }
 
   render() {
@@ -33,7 +33,7 @@ class App extends React.Component {
           </div>
           <div className="CuadroReg">
             <div className="Superior">
-              <label className="Subtitulo">Crea una cuenta</label>
+              <label className="Subtitulo Subletra">Crea una cuenta</label>
             </div>
             <div className="InteriorCuadro2">
               <form>
