@@ -12,27 +12,14 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import FotoPasta from './images/pasta.png'
 import FotoChifrijo from './images/chifrijo.png'
 
+import Publicacion from './publicacion.js';
+
 
 import './principal.css';
 
 
 import ReactSearchBox from 'react-search-box';
-import styled from 'styled-components';
 // Esta funcion se supone que le da el estilo al Toggle del Dropdown
-const CustomToggle = React.forwardRef(({ children, onClick, style }, ref) => (
-    <a
-        ref={ref}
-        onClick={e => { e.preventDefault(); onClick(e); }}
-
-    >
-        {children}
-        {/* &#x25bc;   */}
-        {/* style={ "color:white"} */}
-        {/* {{color:'white'}} */}
-
-    </a>
-
-));
 
 const CustomToggle1 = React.forwardRef(({ children, onClick }, ref) => (
     <a
@@ -42,6 +29,7 @@ const CustomToggle1 = React.forwardRef(({ children, onClick }, ref) => (
             e.preventDefault();
             onClick(e);
         }}
+        className="DropFiltro"
     >
         {children}
         &#x25bc;
@@ -49,18 +37,14 @@ const CustomToggle1 = React.forwardRef(({ children, onClick }, ref) => (
 ));
 
 
-class App extends React.Component {
-    iniciarSesion() {
-
-    }
-
+class Principal extends React.Component {
     render() {
         return (
             <div className="App">
-                <div className="Barra">
+                <div className="BarraPrincipal">
                     <div className="BarraInicio">
-                        <img src={logoEF} className="ElForaneo" alt="El Foráneo" />
-                        <h1>El Foráneo</h1>
+                        <img src={logoEF} className="ElForaneoP" alt="El Foráneo" />
+                        <h1 className="Titulo">El Foráneo</h1>
                     </div>
                     <div className="BarraBusqueda" >
                         <ReactSearchBox
@@ -79,14 +63,14 @@ class App extends React.Component {
                     </div>
                 </div>
                 <div className="App-contenido">
-                    <div className="muro">
+                    <div className="Muro">
 
                         <div className="CuadroFiltros">
-                            <div className="Superior">
+                            <div className="SuperiorFiltros">
                                 <label className="Subtitulo">Filtros</label>
                                 <button className="ButonGenerar"> Generar Plan </button>
                             </div>
-                            <div className="InteriorCuadro2">
+                            <div className="InteriorCuadroFiltros">
                                 <link
                                     rel="stylesheet"
                                     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -100,119 +84,51 @@ class App extends React.Component {
                                         <Dropdown.Item >Another action</Dropdown.Item>
                                         <Dropdown.Item >Something else</Dropdown.Item>
                                     </Dropdown.Menu>
-                                    <Dropdown.Toggle as={CustomToggle}>Categoria</Dropdown.Toggle>
-                                    <Dropdown.Toggle as={CustomToggle}>Rango de Precios</Dropdown.Toggle>
                                 </Dropdown>
-                            </div>
+                                <Dropdown>
+                                    <Dropdown.Toggle as={CustomToggle1}>Categoria</Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item >Action</Dropdown.Item>
+                                        <Dropdown.Item >Another action</Dropdown.Item>
+                                        <Dropdown.Item >Something else</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                                <Dropdown>
+                                    <Dropdown.Toggle as={CustomToggle1}>Rango de Precios</Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item >Puto</Dropdown.Item>
+                                        <Dropdown.Item >Tapia</Dropdown.Item>
+                                        <Dropdown.Item >Playo</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
                         </div>
-                        <div className="CuadroRecetas">
-                            <div className="HeadReceta">
-                                <div className="Info">
-                                    <img src={logoUsuario} className="iconos" alt="Notificaciones" />
-                                    <div className="tiempo" >
-                                        <label id="NombreUsuarioReceta"> Nombre Usuario </label>
-                                        <label id="TiempoReceta"> 45 min </label>
-                                    </div>
-                                </div>
-                                <div className="barraIconosReceta">
-                                    <img src={logoNotificaciones} className="iconos" alt="Notificaciones" />
-                                    <img src={logoCompartir} className="iconos" alt="Nueva Receta" />
-                                </div>
-                            </div>
-                            <div className="CuerpoReceta">
-                                <div className="FotoReceta">
-                                    <img src={FotoPasta} className="TamanoFoto" alt="El Foráneo" />
-                                </div>
-                                <div className="PasosReceta">
-                                    <div className="Instrucciones">
-                                        <p>
-                                            <h1 id="NombreReceta"> Pasta Carbonara</h1>
-                                            <label id="Ingredientes">
-                                                <ul>
-                                                <li>Tomate</li>
-                                                <li>Chile Dulce</li>
-                                                <li>Cebolla</li>
-                                                </ul>
-                                            </label>
-                                            <p>
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            Aqui van los pasos de la receta
-                                            </p>
-                                            <label id="PrecioReceta">Precio estimado</label>
-                                    </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="BarraCalificaciones">
-
-                                <div className="Calificaciones">
-                                    <img src={logoEF} className="iconos" alt="El Foráneo" />
-                                    <img src={logoEF} className="iconos" alt="El Foráneo" />
-                                    <img src={logoBN} className="iconos" alt="El Foráneo" />
-                                    <img src={logoBN} className="iconos" alt="El Foráneo" />
-                                    <img src={logoBN} className="iconos" alt="El Foráneo" />
-                                </div>
-
-                            </div>
-                        </div>
-
-
-
                     </div>
-                    <div className="Favoritos">
+                    <Publicacion />
+                    <Publicacion />
+                    <Publicacion />
 
-                        <div className="HeaderFavoritos">
-                            Mis Recetas Favoritas
+                </div>
+                <div className="Favoritos">
+
+                    <div className="HeaderFavoritos">
+                        Mis Recetas Favoritas
                         </div>
-                        <div className="RecetasFavoritas">
-                            <ul>
-                                <li>
-                                    Receta1
+                    <div className="RecetasFavoritas">
+                        <ul>
+                            <li>
+                                Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                                 </li>
-                                <li>
-                                    Receta2
+                            <li>
+                                Receta2
                                 </li>
 
-                            </ul>
-                        </div>
-
-
+                        </ul>
                     </div>
+
+
                 </div>
             </div>
+            </div >
 
 
         );
@@ -220,4 +136,4 @@ class App extends React.Component {
 
 
 }
-export default App;
+export default Principal;
