@@ -50,12 +50,16 @@
   background-color: #1E332B;
   height: 100vh;
   border-radius: 0px 0px 30px 30px;
-  word-wrap: break-word;
+  overflow: auto;
 }
 
 .RecetasFavoritas ul {
   list-style: none;
   text-align: left;
+}
+
+.RecetasFavoritas::-webkit-scrollbar {
+  display: none;
 }
 
 .BarraPrincipal {
