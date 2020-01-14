@@ -52,15 +52,29 @@
   width: 100%;
   border-radius: 0px 0px 30px 30px;
   overflow: auto;
+  word-break: break-all;
+  padding: 4px;
 }
 
-.RecetasFavoritas ul {
-  list-style: none;
+.RecetasFavoritas ul {  
   text-align: left;
 }
 
-.RecetasFavoritas::-webkit-scrollbar {
-  display: none;
+::-webkit-scrollbar-track{
+  color: #9B0000;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: #E18737; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9B0000; 
 }
 
 .BarraPrincipal {
@@ -71,6 +85,7 @@
   color: white;
   height: 10vh;
   padding: 0px 60px;
+
 }
 
 .BarraInicio {
