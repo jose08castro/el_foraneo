@@ -200,7 +200,7 @@ class App extends React.Component {
                         <div className="RecetasFavoritas">
                             <ul>
                                 <li>
-                                    Receta1
+                                    Receta1Receta1Receta1Receta1Receta1Receta1Receta1Receta1Receta1Receta1Receta1Receta1Receta1Receta1Receta1
                                 </li>
                                 <li>
                                     Receta2
