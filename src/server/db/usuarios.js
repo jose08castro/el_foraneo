@@ -16,29 +16,25 @@ const login = async (usuario,password) =>{
     return new Promise((resolve,reject) =>{
         let sql = "SELECT * FROM usuarios WHERE usuario = ? AND password = ?"
         let params = [usuario,password];
-        console.log(usuario);
-        console.log(password);
         connection.connection.query(sql,params, (err, results) =>{
-            return (err) ?  reject(err) : resolve({result: results.length});
+            return (err || results.length === 0)  ?  reject(err) : resolve({id: results[0].id}); //Si hay error o la contraseña es invalida, retornamos error, si no, el id.
         });
     });
 }
 
-const register = async (nombre, apellidos, usuario, password) =>{
+const register = async (nombre, apellidos, correo, usuario, password) =>{
     return new Promise((resolve,reject) =>{
         //Verificamos si podemos registrar el usuario:
-        let existsQuery = "SELECT usuario FROM usuarips WHERE usuario = ?";
+        let existsQuery = "SELECT usuario FROM usuarios WHERE usuario = ?";
         let params = [usuario];
         let exists = false;
         connection.connection.query(existsQuery, params,function (err, data) {
-                if (err) {
-                } else {
+                if (!err) 
                     exists = data.length > 0;
-                }
         });
         if(!exists){
-            let sql = "INSERT INTO usuarios(nombre,apellidos,usuario,password) VALUES (?,?,?,?)"
-            params = [nombre, apellidos,usuario,password];
+            let sql = "INSERT INTO usuarios(nombre,apellidos,correo,usuario,password) VALUES (?,?,?,?,?)"
+            params = [nombre, apellidos, correo, usuario, password];
             connection.connection.query(sql,params, (err, results) =>{
                 return (err) ?  reject(err) : resolve({result: true});
             });

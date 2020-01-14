@@ -20,44 +20,28 @@ router.post('/api/login', urlencodedParser, async (req , res)=> {
     try{
         let dbResult = await DB.default.usuarios.login(req.body.usuario, req.body.password);
         console.log(dbResult);
-        if(dbResult.result > 0)
-            res.send(req.body.usuario);
+        if(dbResult.id)
+            res.send({result:true, id:dbResult.id});
         else
-            res.send("Invalid username or password")
+            res.send({result:false,message:"Invalid username or password"})
     }
     catch(e){
         console.log(e);
-        res.sendStatus(500);
+        res.send({result:false,message:"Invalid username or password"})
     }
 });
 
-router.post('/api/crear_receta', urlencodedParser, async (req , res)=> {
+router.post('/api/user/register', urlencodedParser, async (req , res)=> {
     try{
-        let dbResult = await DB.default.recetas.crear(req.body.nombre, req.body.password);
-        console.log(dbResult);
-        if(dbResult.result > 0)
-            res.send(req.body.usuario);
-        else
-            res.send("Invalid username or password")
+        let result = true;
+        let dbResult = await DB.default.usuarios.register(req.body.nombre, req.body.apellidos, req.body.correo, req.body.usuarioR, req.body.passwordR);
+        if(dbResult.errno)
+            result = false;
+        res.send({result:result});
     }
     catch(e){
         console.log(e);
-        res.sendStatus(500);
-    }
-});
-
-router.post('/api/crear_receta', urlencodedParser, async (req , res)=> {
-    try{
-        let dbResult = await DB.default.recetas.crear(req.body.nombre, req.body.password);
-        console.log(dbResult);
-        if(dbResult.result > 0)
-            res.send(req.body.usuario);
-        else
-            res.send("Invalid username or password")
-    }
-    catch(e){
-        console.log(e);
-        res.sendStatus(500);
+        res.send({result:false, message:"Error al crear usuario, asegurese de que su usuario sea único."});
     }
 });
 
