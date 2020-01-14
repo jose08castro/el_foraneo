@@ -1,19 +1,23 @@
 .App {
   text-align: center;
-  background-color: #faeeae;
-  /* height: 100%; */
-  height: 900px;
 }
 
 .App-contenido {
   background: #faeeae;
-  height: 90vh;
+  /* height: 90vh; */
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   font-size: calc(10px + 2vmin);
   color: white;
-  margin: 40px;
+  padding: 0px 40px;
+  /* overflow-y:scroll; */
+}
+
+.Titulo {
+  display: block;
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .Favoritos {
@@ -24,7 +28,7 @@
   width: 20vw;
 }
 
-.muro {
+.Muro {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -35,7 +39,6 @@
   background-color: #E18737;
   border-radius: 30px 30px 0px 0px;
   height: 10vh;
-  width: 20vw;
   padding-top: 1vh;
   font-size: small
 }
@@ -43,6 +46,7 @@
 .RecetasFavoritas {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   background-color: #1E332B;
   height: 100vh;
   border-radius: 0px 0px 30px 30px;
@@ -51,16 +55,17 @@
 
 .RecetasFavoritas ul {
   list-style: none;
+  text-align: left;
 }
 
-.Barra {
+.BarraPrincipal {
   background: #9B0000;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* align-items: center; */
   color: white;
   height: 10vh;
+  padding: 0px 60px;
 }
 
 .BarraInicio {
@@ -83,10 +88,9 @@
   align-items: center;
 }
 
-.ElForaneo {
-  height: 30px;
+.ElForaneoP {
+  height: 50px;
   margin: 0px 20px;
-  /* align-items: flex-start; */
 }
 
 .BarraBusqueda {
@@ -95,23 +99,13 @@
   /* background-color: #E18737; */
 }
 
-.CuadroReg {
-  display: flex;
-  flex-direction: column;
-  height: 450px;
-  width: 35vw;
-  border-radius: 30px;
-  background: #1E332B;
-  margin: 0px 5vw;
-}
-
 .CuadroFiltros {
   display: flex;
   flex-direction: column;
   width: 60vw;
 }
 
-.Superior {
+.SuperiorFiltros {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -123,25 +117,20 @@
 
 .ButonGenerar {
   background-color: #1E332B;
-  border-radius: 30px 30px 30px 30px;
-  height: 7vh;
+  border-radius: 30px;
+  height: 6vh;
   width: 12vw;
   margin: 1vh;
   border-style: none;
   color: white;
+  font-size: 20px;
 }
 
-.InteriorCuadro {
+.InteriorCuadroFiltros {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 270px;
-}
-
-.InteriorCuadro2 {
-  display: flex;
+  flex-direction: row;
   justify-content: space-around;
+  align-items: center;
   height: 9vh;
   background-color: #1E332B;
   border-radius: 0 0 30px 30px;
@@ -157,6 +146,7 @@
   display: flex;
   flex-direction: column;
   width: 60vw;
+  margin: 15px 0px;
 }
 
 .HeadReceta {
@@ -215,6 +205,7 @@
   margin: 12px;
   align-items: center;
   justify-content: center;
+  object-fit: contain;
 }
 
 .PasosReceta {
@@ -244,9 +235,12 @@
   justify-content: flex-start;
 }
 
-.Subtitulo {
-  margin-left: 35px;
+.DropFiltro {
   font-style: normal;
-  font-size: 23px;
+  font-size: 18px;
   color: white;
+  font-weight: bold;
+  background: #E18737;
+  padding: 3px;
+  border-radius: 30px;
 }
