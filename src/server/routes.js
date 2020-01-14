@@ -2,7 +2,7 @@ const express = require('express');
 const DB = require('./db');
 const bodyParser = require('body-parser');
 const router = express.Router();
-
+const path = require('path');
 var urlencodedParser = bodyParser.urlencoded({ extended : false});
 
 router.get('/api/usuarios', async (req , res)=> {
@@ -79,4 +79,7 @@ router.get('/api/notificaciones/read',async (req, res) => {
     }
 });
 
+router.get('*', (req, res) => {                       
+    res.sendFile(path.resolve('../App.js'));                               
+  });
 module.exports = router;
