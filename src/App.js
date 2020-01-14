@@ -1,74 +1,60 @@
-import React, { Component } from 'react';
+
+import React from 'react';
+import logoEF from './images/logo.png';
 import './App.css';
+import Principal from './principal.js';
+import ReactDOM from 'react-dom';
 
-/*
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-*/
-
-class App extends Component{
-
-  constructor(props) {
-		super(props)
-		this.state = {
-      usuarios : [],
-      usuario : '',
-      password : ''
-    };
-	}
-
-  async componentDidMount(){
-    let resp = await fetch('/api/usuarios');
-    let usuarios = await resp.json();
-    this.setState({usuarios : usuarios.usuarios})
+class App extends React.Component {
+  iniciarSesion() {
+    ReactDOM.render(<Principal />, document.getElementById('root'));
   }
 
-  renderUsuario = ({usuario, nombre, apellidos}) => <div key = {usuario}>{nombre} {apellidos}</div>
-
-  changeHandler = (e) => {
-    this.setState({[e.target.name]:[e.target.value]})
-  }
-
-
-
-  render(){
-    const { usuarios, usuario, password} = this.state;
-    return(
-      <div className="App">
-        {usuarios.map(this.renderUsuario)} 
-        <div>
-        <form method="POST" action="/api/login">
-          <div>
-            <input type='text' name='usuario' value={usuario} onChange={this.changeHandler}/>
+  render() {
+    return (
+      <div id="App" className="App">
+        <div className="Barra">
+          <img src={logoEF} className="ElForaneo" alt="El Foráneo" />
+          <h1>El Foráneo</h1>
+        </div>
+        <div className="App-header">
+          <div className="CuadroUsu">
+            <div className="Superior">
+              <label className="Subtitulo">Inicio de Sesión</label>
+            </div>
+            <div className="InteriorCuadro">
+              <form>
+                <input className="Campo" type="text" id="inputUserR" placeholder="Username" required></input>
+                <br />
+                <input className="Campo" type="text" id="inputPassR" placeholder="Password" required></input>
+                <br />
+                <button className="Boton" onClick={this.iniciarSesion}>Iniciar Sesión</button>
+              </form>
+            </div>
           </div>
-          <div>
-            <input type='password' name='password' value={password} onChange={this.changeHandler}/>
+          <div className="CuadroReg">
+            <div className="Superior">
+              <label className="Subtitulo Subletra">Crea una cuenta</label>
+            </div>
+            <div className="InteriorCuadro2">
+              <form>
+                <input className="Campo" type="text" id="inputNombre" placeholder="Nombre" required></input>
+                <br />
+                <input className="Campo" type="text" id="inputApellido" placeholder="Apellidos" required></input>
+                <br />
+                <input className="Campo" type="text" id="inputEmail" placeholder="Correo" required></input>
+                <br />
+                <input className="Campo" type="text" id="inputUser" placeholder="Username" required></input>
+                <br />
+                <input className="Campo" type="text" id="inputPass" placeholder="Password" required></input>
+                <br />
+                <button className="Boton">Regístrate</button>
+              </form>
+            </div>
           </div>
-          <button type="submit">submit</button>
-        </form>
+        </div>
       </div>
-      </div>
-    )
+    );
   }
-  
-
 }
 export default App;
