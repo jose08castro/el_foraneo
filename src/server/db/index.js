@@ -1,6 +1,8 @@
 const mysql = require("mysql");
 const config = require("../config");
 const usuarios = require('./usuarios');
+const recetas = require('./recetas');
+const notificaciones = require('./notificaciones');
 
 console.log(config);
 const connection = mysql.createConnection(config.default.mysql);
@@ -11,5 +13,7 @@ connection.connect(function(err){
 });
 
 module.exports.default = {
-    usuarios
+    usuarios,
+    recetas,
+    notificaciones
 }  
