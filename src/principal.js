@@ -6,6 +6,7 @@ import logoExplorar from './images/explore.png';
 import logoNotificaciones from './images/favorite.png';
 import logoUsuario from './images/person.png';
 import logoNuevaReceta from './images/nuevaReceta.png';
+
 import Dropdown from 'react-bootstrap/Dropdown'
 
 import Publicacion from './publicacion.js';
@@ -127,8 +128,6 @@ class Principal extends React.Component {
 
                             </ul>
                         </div>
-
-
                     </div>
                 </div>
             </div >
