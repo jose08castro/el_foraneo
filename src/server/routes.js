@@ -79,7 +79,8 @@ router.get('/api/notificaciones/read',async (req, res) => {
     }
 });
 
-router.get('*', (req, res) => {                       
-    res.sendFile(path.resolve('../App.js'));                               
-  });
+// router.get('*', (req, res) => {                       
+//     res.sendFile(path.resolve('./scr/App.js'));                               
+//   });
+
 module.exports = router;
