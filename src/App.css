@@ -1,3 +1,7 @@
+.displayErrors input:invalid {
+  border-color: red;
+}
+
 .App {
   text-align: center;
 }
@@ -37,6 +41,14 @@
   border-radius: 30px;
   background: #1E332B;
   margin: 0px 5vw;
+}
+
+.ErrorMessage { 
+  position: absolute; 
+  width: 35vw;
+  margin-top: 80px;
+  text-align: center;
+  font-size: 12px;
 }
 
 .CuadroReg {
