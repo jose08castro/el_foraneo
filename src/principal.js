@@ -6,13 +6,11 @@ import logoExplorar from './images/explore.png';
 import logoNotificaciones from './images/favorite.png';
 import logoUsuario from './images/person.png';
 import logoNuevaReceta from './images/nuevaReceta.png';
-import logoCompartir from './images/compartir.png';
+
 import Dropdown from 'react-bootstrap/Dropdown'
 
-import FotoPasta from './images/pasta.png'
-import FotoChifrijo from './images/chifrijo.png'
-
 import Publicacion from './publicacion.js';
+import Barra from './barra.js';
 
 
 import './principal.css';
@@ -41,27 +39,7 @@ class Principal extends React.Component {
     render() {
         return (
             <div className="App">
-                <div className="BarraPrincipal">
-                    <div className="BarraInicio">
-                        <img src={logoEF} className="ElForaneoP" alt="El Foráneo" />
-                        <h1 className="Titulo">El Foráneo</h1>
-                    </div>
-                    <div className="BarraBusqueda" >
-                        <ReactSearchBox
-                            placeholder="Buscar"
-                            inputBoxFontColor="red"
-                            onFocus={() => {
-                                console.log('This function is called when is focussed')
-                            }}
-                        />
-                    </div>
-                    <div className="barraIconos">
-                        <img src={logoExplorar} className="iconos" alt="Explorar" />
-                        <img src={logoNotificaciones} className="iconos" alt="Notificaciones" />
-                        <img src={logoNuevaReceta} className="iconos" alt="Nueva Receta" />
-                        <img src={logoUsuario} className="iconos" alt="Mi perfil" />
-                    </div>
-                </div>
+                <Barra />
                 <div className="App-contenido">
                     <div className="Muro">
 
@@ -101,59 +79,57 @@ class Principal extends React.Component {
                                         <Dropdown.Item >Playo</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
+                            </div>
                         </div>
+                        <Publicacion />
+                        <Publicacion />
+                        <Publicacion />
+
                     </div>
-                    <Publicacion />
-                    <Publicacion />
-                    <Publicacion />
+                    <div className="Favoritos">
 
-                </div>
-                <div className="Favoritos">
-
-                    <div className="HeaderFavoritos">
-                        Mis Recetas Favoritas
+                        <div className="HeaderFavoritos">
+                            Mis Recetas Favoritas
                         </div>
-                    <div className="RecetasFavoritas">
-                        <ul>
-                            <li>
-                                Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                </li>
-                            <li>
-                                Receta2
+                        <div className="RecetasFavoritas">
+                            <ul>
+                                <li>
+                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                                 </li>
                                 <li>
-                                Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                    Receta2
                                 </li>
-                            <li>
-                                Receta2
+                                <li>
+                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                </li>
+                                <li>
+                                    Receta2
                                 </li>                            <li>
-                                Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                                 </li>
-                            <li>
-                                Receta2
+                                <li>
+                                    Receta2
                                 </li>                            <li>
-                                Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                                 </li>
-                            <li>
-                                Receta2
+                                <li>
+                                    Receta2
                                 </li>                            <li>
-                                Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                                 </li>
-                            <li>
-                                Receta2
+                                <li>
+                                    Receta2
                                 </li>                            <li>
-                                Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                                 </li>
-                            <li>
-                                Receta2
+                                <li>
+                                    Receta2
                                 </li>
 
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
-
-
                 </div>
-            </div>
             </div >
 
 
