@@ -120,8 +120,6 @@ class Principal extends React.Component {
 
                             </ul>
                         </div>
-
-
                     </div>
                 </div>
             </div >
