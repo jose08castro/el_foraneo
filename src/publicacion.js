@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import logoBN from './images/logoBN.png';
 import logoEF from './images/logo.png';
 import logoNotificaciones from './images/favorite.png';
@@ -8,7 +9,13 @@ import logoCompartir from './images/compartir.png';
 import FotoPasta from './images/pasta.png'
 import FotoChifrijo from './images/chifrijo.png'
 
+import InfoReceta from './infoReceta.js';
+
 class Publicacion extends React.Component {
+    cargarInformacion() {
+        ReactDOM.render(<InfoReceta />, document.getElementById('root'));
+    }
+
     render() {
         return (
             <div className="CuadroRecetas">
@@ -27,7 +34,7 @@ class Publicacion extends React.Component {
                 </div>
                 <div className="CuerpoReceta">
                     <div className="FotoReceta">
-                        <img src={FotoChifrijo} className="TamanoFoto" alt="El Foráneo" />
+                        <img src={FotoChifrijo} className="TamanoFoto" alt="El Foráneo" onClick={this.cargarInformacion} />
                     </div>
                     <div className="PasosReceta">
                         <div className="Instrucciones">
@@ -39,43 +46,6 @@ class Publicacion extends React.Component {
                                     <li>Cebolla</li>
                                 </ul>
                             </label>
-                            <p>
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                Aqui van los pasos de la receta
-                                            </p>
                             <label id="PrecioReceta">Precio estimado</label>
                         </div>
                     </div>
