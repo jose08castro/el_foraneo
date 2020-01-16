@@ -53,6 +53,7 @@
     width: 50%;
     height: 100%;
     padding: 20px;
+    padding-top: 200px;
     overflow: auto;
     background: #1E332B;
     color: white;
@@ -73,4 +74,9 @@
     max-height: 90%;
     margin: 12px;
     object-fit: contain;
+  }
+
+#PrecioReceta{
+    font-size: 18px;
+    font-weight: bold;
   }

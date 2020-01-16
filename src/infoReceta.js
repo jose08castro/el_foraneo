@@ -6,13 +6,30 @@ import logoNotificaciones from './images/favorite.png';
 import logoUsuario from './images/person.png';
 import logoCompartir from './images/compartir.png';
 
-import FotoPasta from './images/pasta.png'
-import FotoChifrijo from './images/chifrijo.png'
-
-
 import './infoReceta.css';
 
 class InfoReceta extends React.Component {
+    constructor(props){
+        super();
+    }
+    renderIngrediente = ({nombre, precio, cantidad},i) => <li key={i}>{nombre} x {cantidad}</li>
+    renderRating = () => {
+        let rating = []
+        //temporal
+        let ratingNumber = Math.ceil(this.props.rating);
+        // Create filled maruchan
+        for(let i = 0; i < ratingNumber ; i++) {
+            rating.push(<img key={i} src={logoEF} className="iconos" alt="El Foráneo" />);
+        }
+        // Create unfilled maruchan
+        for(let i = ratingNumber ; i < 5; i++) {
+            rating.push(<img key={i}src={logoBN} className="iconos" alt="El Foráneo" />);
+        }
+        return rating
+    }
+    renderImage = () =>{
+        return <img src={this.props.imagen} className="TamanoFoto" alt="El Foráneo" onClick={this.cargarInformacion} />
+    }
     render() {
         return (
             <div className="App">
@@ -23,8 +40,8 @@ class InfoReceta extends React.Component {
                             <div className="Info">
                                 <img src={logoUsuario} className="iconos" alt="Notificaciones" />
                                 <div className="tiempo" >
-                                    <label id="NombreUsuarioReceta"> Nombre Usuario </label>
-                                    <label id="TiempoReceta"> 45 min </label>
+                                    <label id="NombreUsuarioReceta"> {this.props.usuario} </label>
+                                    <label id="TiempoReceta"> {this.props.tiempo} min - {this.props.categoria} </label>
                                 </div>
                             </div>
                             <div className="barraIconosReceta">
@@ -34,65 +51,23 @@ class InfoReceta extends React.Component {
                         </div>
                         <div className="CuerpoRecetaInfo">
                             <div className="FotoRecetaInfo">
-                                <img src={FotoChifrijo} className="TamanoFotoInfo" alt="El Foráneo" />
+                                {this.renderImage()}
                             </div>
                             <div className="PasosRecetaInfo">
-                                <h1 id="NombreReceta"> Pasta Carbonara</h1>
+                                <h1 id="NombreReceta"> {this.props.nombre}</h1>
                                 <label id="Ingredientes">
                                     <ul>
-                                        <li>Tomate</li>
-                                        <li>Chile Dulce</li>
-                                        <li>Cebolla</li>
+                                    {this.props.ingredientes.map(this.renderIngrediente)}
                                     </ul>
                                 </label>
-                                <p>
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                    Aqui van los pasos de la receta
-                                            </p>
-                                <label id="PrecioReceta">Precio estimado</label>
+                                <p>{this.props.pasos}</p>
+                                <label id="PrecioReceta">Precio estimado: ₡{this.props.precio}</label>
                             </div>
                         </div>
                         <div className="BarraCalificacionesInfo">
 
                             <div className="Calificaciones">
-                                <img src={logoEF} className="iconos" alt="El Foráneo" />
-                                <img src={logoEF} className="iconos" alt="El Foráneo" />
-                                <img src={logoBN} className="iconos" alt="El Foráneo" />
-                                <img src={logoBN} className="iconos" alt="El Foráneo" />
-                                <img src={logoBN} className="iconos" alt="El Foráneo" />
+                            {this.renderRating()}
                             </div>
 
                         </div>

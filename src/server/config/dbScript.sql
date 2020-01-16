@@ -302,6 +302,59 @@ ALTER TABLE `seguidores`
   ADD CONSTRAINT `seguidores_ibfk_2` FOREIGN KEY (`id_seguido`) REFERENCES `usuarios` (`id`);
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+DELIMITER $$
+
+CREATE PROCEDURE sp_get_plan_recetas(IN pplato_min   INT, 
+                                     IN pplato_max   INT, 
+                                     IN categoria_id INT, 
+                                     IN cantidad     INT)
+begin 
+  CREATE temporary TABLE temptable 
+    ( 
+       id           INT,
+       id_categoria INT, 
+       precio       INT, 
+       tiempo       INT, 
+       nombre       VARCHAR(64),
+       categoria    VARCHAR(64), 
+       usuario      VARCHAR(128),
+       pasos        TEXT, 
+       imagen       LONGBLOB);
+    WHILE cantidad > 0 do 
+    INSERT INTO temptable 
+    SELECT r.id,
+           r.id_categoria, 
+           precios.precio, 
+           r.tiempo, 
+           r.nombre AS nombre, 
+           c.nombre AS categoria, 
+           u.usuario,
+           r.pasos, 
+           r.imagen 
+    FROM   recetas r 
+           JOIN usuarios u 
+             ON r.id_usuario = u.id 
+           JOIN categorias c 
+             ON r.id_categoria = c.id 
+           JOIN (SELECT rec.id, 
+                        Sum(ing.precio * ingxrec.cantidad) AS precio 
+                 FROM   recetas rec 
+                        JOIN ingredientesxreceta ingxrec 
+                          ON rec.id = ingxrec.id_receta 
+                        JOIN ingredientes ing 
+                          ON ingxrec.id_ingrediente = ing.id 
+                 GROUP  BY ( rec.id )) AS precios 
+             ON precios.id = r.id 
+    WHERE  precios.precio >= pplato_min 
+           AND precios.precio <= pplato_max 
+           AND r.id_categoria = categoria_id 
+    ORDER  BY Rand() 
+    LIMIT  1; 
+    SET cantidad = cantidad - 1; 
+  end WHILE;
+  SELECT * 
+  FROM   temptable; 
+end$$
+ 
+DELIMITER ;

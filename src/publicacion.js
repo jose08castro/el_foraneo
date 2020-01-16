@@ -6,17 +6,26 @@ import logoNotificaciones from './images/favorite.png';
 import logoUsuario from './images/person.png';
 import logoCompartir from './images/compartir.png';
 
-import FotoPasta from './images/pasta.png'
-import FotoChifrijo from './images/chifrijo.png'
-
 import InfoReceta from './infoReceta.js';
 
 class Publicacion extends React.Component {
     constructor(props){
         super();
     }
-    cargarInformacion() {
-        ReactDOM.render(<InfoReceta />, document.getElementById('root'));
+    cargarInformacion = () =>{
+        let info = <InfoReceta     
+        key = {this.props.key}
+        idReceta={this.props.id} 
+        nombre={this.props.nombre} 
+        pasos={this.props.pasos} 
+        tiempo={this.props.tiempo} 
+        imagen={this.props.imagen}
+        categoria={this.props.categoria} 
+        usuario={this.props.usuario}
+         rating={this.props.rating} 
+         ingredientes={this.props.ingredientes} 
+         precio={this.props.precio}/>
+        ReactDOM.render(info, document.getElementById('root'));
     }
     renderIngrediente = ({nombre, precio, cantidad},i) => <li key={i}>{nombre} x {cantidad}</li>
     renderRating = () => {
