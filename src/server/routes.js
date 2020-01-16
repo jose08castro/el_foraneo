@@ -45,6 +45,44 @@ router.post('/api/user/register', urlencodedParser, async (req , res)=> {
     }
 });
 
+router.get('api/recetas/favoritas', async (req, res) => {
+    try{
+        let recetas = {}
+        if(req.query.id_usuario){
+            recetas = await DB.default.recetas.find(req.query.id); //Recetas favoritas
+            res.json(recetas);
+        }
+        else{
+            res.sendStatus(500);
+        }
+    }
+    catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+});
+
+router.get('/api/recetas', async (req , res)=> {
+    try{
+        let recetas = {}
+        if(req.query.id){
+            recetas = await DB.default.recetas.find(req.query.id); //Recetas favoritas
+        }
+        else if(req.query.search){
+            recetas = await DB.default.recetas.search(req.query.search); //Busqueda de recetas
+        }
+        else{
+            recetas =  await DB.default.recetas.all();
+        }
+        res.json(recetas);
+    }
+    catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+});
+
+
 router.get('/api/notificaciones',async (req, res) => {
     try{
         let dbResult = await DB.default.notificaciones.all(req.query.id);
