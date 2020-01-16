@@ -5,7 +5,7 @@ const router = express.Router();
 
 var urlencodedParser = bodyParser.urlencoded({ extended : false});
 
-router.get('/api/usuarios', async (req , res)=> {
+router.get('/usuarios', async (req , res)=> {
     try{
         let usuarios = await DB.default.usuarios.all();
         res.json(usuarios);
@@ -16,10 +16,9 @@ router.get('/api/usuarios', async (req , res)=> {
     }
 });
 
-router.post('/api/login', urlencodedParser, async (req , res)=> {
+router.post('/login', urlencodedParser, async (req , res)=> {
     try{
         let dbResult = await DB.default.usuarios.login(req.body.usuario, req.body.password);
-        console.log(dbResult);
         if(dbResult.id)
             res.send({result:true, id:dbResult.id});
         else
@@ -31,7 +30,7 @@ router.post('/api/login', urlencodedParser, async (req , res)=> {
     }
 });
 
-router.post('/api/user/register', urlencodedParser, async (req , res)=> {
+router.post('/user/register', urlencodedParser, async (req , res)=> {
     try{
         let result = true;
         let dbResult = await DB.default.usuarios.register(req.body.nombre, req.body.apellidos, req.body.correo, req.body.usuarioR, req.body.passwordR);
@@ -44,31 +43,13 @@ router.post('/api/user/register', urlencodedParser, async (req , res)=> {
         res.send({result:false, message:"Error al crear usuario, asegurese de que su usuario sea único."});
     }
 });
-
-router.get('api/recetas/favoritas', async (req, res) => {
+router.get('/recetas', async (req , res)=> {
     try{
         let recetas = {}
-        if(req.query.id_usuario){
-            recetas = await DB.default.recetas.find(req.query.id); //Recetas favoritas
-            res.json(recetas);
-        }
-        else{
-            res.sendStatus(500);
-        }
-    }
-    catch(e){
-        console.log(e);
-        res.sendStatus(500);
-    }
-});
-
-router.get('/api/recetas', async (req , res)=> {
-    try{
-        let recetas = {}
-        if(req.query.id){
+        if(typeof req.query.id !== 'undefined' ){
             recetas = await DB.default.recetas.find(req.query.id); //Recetas favoritas
         }
-        else if(req.query.search){
+        else if(typeof req.query.search !== 'undefined'){
             recetas = await DB.default.recetas.search(req.query.search); //Busqueda de recetas
         }
         else{
@@ -82,10 +63,39 @@ router.get('/api/recetas', async (req , res)=> {
     }
 });
 
-
-router.get('/api/notificaciones',async (req, res) => {
+router.get('/favoritas/:id_usuario', async (req, res) => {
     try{
-        let dbResult = await DB.default.notificaciones.all(req.query.id);
+        let recetas = {}
+        if(req.params.id_usuario){
+            console.log(req.params.id_usuario);
+            recetas = await DB.default.recetas.favoritas(req.params.id_usuario); //Recetas favoritas
+            res.json(recetas);
+        }
+        else{
+            res.sendStatus(500);
+        }
+    }
+    catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+});
+
+router.get('/categorias', async (req, res) =>{
+    try{
+        let categorias = await DB.default.recetas.categorias(); //Categorias
+        console.log(categorias);
+        res.json(categorias);
+    }
+    catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+});
+
+router.get('/notificaciones/:id',async (req, res) => {
+    try{
+        let dbResult = await DB.default.notificaciones.all(req.params.id);
         res.send(dbResult);
     }
     catch(e){
@@ -94,10 +104,20 @@ router.get('/api/notificaciones',async (req, res) => {
     }
 });
 
-router.post('/api/notificaciones', urlencodedParser, async (req , res)=> {
+router.post('/notificaciones', urlencodedParser, async (req , res)=> {
     try{
+        if(req.body.read){
+            //Read notifications if body includes it
+            try{
+                let dbResult = await DB.default.notificaciones.all(req.body.id_usuario);
+                res.send(dbResult);
+            }
+            catch(e){
+                console.log(e);
+                res.sendStatus(500);
+            }
+        }
         let dbResult = await DB.default.notificaciones.insert(req.body.id_usuario, req.body.mensaje);
-        console.log(dbResult);
         res.send(req.body.usuario);
     }
     catch(e){
@@ -106,15 +126,5 @@ router.post('/api/notificaciones', urlencodedParser, async (req , res)=> {
     }
 });
 
-router.get('/api/notificaciones/read',async (req, res) => {
-    try{
-        let dbResult = await DB.default.notificaciones.all(req.query.id);
-        res.send(dbResult);
-    }
-    catch(e){
-        console.log(e);
-        res.sendStatus(500);
-    }
-});
 
 module.exports = router;

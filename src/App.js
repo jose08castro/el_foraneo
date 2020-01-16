@@ -8,9 +8,13 @@ import Cookies from 'universal-cookie';
 class App extends React.Component {
   constructor() {
     super();
-    this.iniciarSesion = this.iniciarSesion.bind(this);
-    this.registrarUsuario = this.registrarUsuario.bind(this);
-    this.state = { displayErrors:false, displayErrorsR:false,errorMessage:"",errorMessageR:""};
+    const cookie = new Cookies();
+    if(cookie.get('USER')){
+      ReactDOM.render(<Principal />, document.getElementById('root'));
+    }
+      this.iniciarSesion = this.iniciarSesion.bind(this);
+      this.registrarUsuario = this.registrarUsuario.bind(this);
+      this.state = { displayErrors:false, displayErrorsR:false,errorMessage:"",errorMessageR:""};
   }
 
   async iniciarSesion(event) {
@@ -25,7 +29,7 @@ class App extends React.Component {
     // form is valid! We can parse and submit data
     const formData = new FormData(event.target);
     const data = new URLSearchParams(formData);
-    await fetch('/api/login', {
+    await fetch('/login', {
       method: 'POST',
       body: data
     }).then(res => {
@@ -36,7 +40,7 @@ class App extends React.Component {
         console.log(resp);
         if (resp.result) {
           const cookie = new Cookies();
-          cookie.set('USER', { logged: true, id: resp }, { path: '/' });
+          cookie.set('USER', { logged: true, id: resp.id }, { path: '/' });
           console.log(cookie.get('USER'));
           ReactDOM.render(<Principal />, document.getElementById('root'));
         }
@@ -62,7 +66,7 @@ class App extends React.Component {
     const formData = new FormData(event.target);
     const data = new URLSearchParams(formData);
 
-    await fetch('/api/user/register', {
+    await fetch('/user/register', {
       method: 'POST',
       body: data,
     }).then(res => {
@@ -72,7 +76,7 @@ class App extends React.Component {
       .then(resp => {
         if (resp.result) {
           const cookie = new Cookies();
-          cookie.set('USER', { logged: true, id: resp }, { path: '/' });
+          cookie.set('USER', { logged: true, id: resp.id }, { path: '/' });
           console.log(cookie.get('USER'));
           ReactDOM.render(<Principal />, document.getElementById('root'));
         }

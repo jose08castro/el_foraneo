@@ -1,10 +1,12 @@
 let connection =  require('./index');
 
-const SELECT = 'SELECT r.id, r.nombre, r.pasos, r.tiempo, r.imagen, c.nombre, u.usuario FROM recetas r join usuarios u on r.id_usuario = u.id join categorias c on r.id_categoria = c.id';
+const SELECT = 'SELECT r.id, r.nombre as nombre, r.pasos, r.tiempo, r.imagen, c.nombre as categoria, u.usuario FROM recetas r join usuarios u on r.id_usuario = u.id join categorias c on r.id_categoria = c.id';
 const GETINGREDIENTS = 'SELECT i.nombre, i.precio, ir.cantidad FROM ingredientesxreceta ir JOIN ingredientes i on ir.id_ingrediente = i.id WHERE ir.id_receta = ?'
 const GETRATING = 'SELECT AVG(rr.rating) as rating ,r.id FROM recetas r JOIN rating_receta rr on rr.id_receta = r.id WHERE r.id = ? GROUP BY r.id'
-const SEARCH = "SELECT r.id, r.nombre, r.pasos, r.tiempo, r.imagen, c.nombre, u.usuario FROM recetas r join usuarios u on r.id_usuario = u.id join categorias c on r.id_categoria = c.id WHERE r.nombre LIKE '%?%'"
-const FINDID = "SELECT r.id, r.nombre, r.pasos, r.tiempo, r.imagen, c.nombre, u.usuario FROM recetas r join usuarios u on r.id_usuario = u.id join categorias c on r.id_categoria = c.id WHERE r.id = ?"
+const SEARCH = "SELECT r.id, r.nombre as nombre, r.pasos, r.tiempo, r.imagen, c.nombre as categoria, u.usuario FROM recetas r join usuarios u on r.id_usuario = u.id join categorias c on r.id_categoria = c.id WHERE r.nombre LIKE '%?%'"
+const FINDID = "SELECT r.id, r.nombre as nombre, r.pasos, r.tiempo, r.imagen, c.nombre as categoria, u.usuario FROM recetas r join usuarios u on r.id_usuario = u.id join categorias c on r.id_categoria = c.id WHERE r.id = ?"
+const GETCATEGORY = "SELECT id, nombre FROM categorias";
+const GETFAVORITAS = "SELECT r.id, r.nombre FROM recetas_favoritas rf join recetas r on rf.id_receta = r.id WHERE rf.id_usuario = ?"
 
 function getRating(id){
     return new Promise((resolve,reject)=>{
@@ -47,6 +49,9 @@ async function armarReceta(receta){
     recetaNueva.rating = rating;
     recetaNueva.ingredientes = ingredientes.ingredientes;
     recetaNueva.precio = ingredientes.precio;
+    var buffer = Buffer.from( receta.imagen );
+    var bufferBase64 = buffer.toString('base64');
+    recetaNueva.imagen =  "data:image/jpg;base64," + bufferBase64;//
     return recetaNueva;
 
 }
@@ -111,9 +116,9 @@ const find = (id) =>{
 
 }
 
-const favoritas = async(idUSuario) =>{
+const favoritas = async(idUsuario) =>{
     return new Promise((resolve,reject)=>{
-        connection.connection.query(SEARCH,[idUSuario], async (err, results) =>{
+        connection.connection.query(GETFAVORITAS,[idUsuario], async (err, results) =>{
             if(err)
                 return reject(err);
             else{
@@ -124,13 +129,30 @@ const favoritas = async(idUSuario) =>{
 
     });
 }
+
+const categorias = async () =>{
+    return new Promise((resolve,reject)=>{
+        connection.connection.query(GETCATEGORY, async (err, results) =>{
+            if(err)
+                return reject(err);
+            else{
+                resolve({categorias: results});
+            }
+            
+        });
+
+    });
+}
+
 module.exports.all = all;
 module.exports.search = search;
 module.exports.favoritas = favoritas;
-module.export.findId = find;
+module.exports.find = find;
+module.exports.categorias = categorias;
 module.exports.default = {
     all,
     search,
     favoritas,
-    find
+    find,
+    categorias
 }

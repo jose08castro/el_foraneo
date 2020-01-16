@@ -6,6 +6,7 @@ import logoExplorar from './images/explore.png';
 import logoNotificaciones from './images/favorite.png';
 import logoUsuario from './images/person.png';
 import logoNuevaReceta from './images/nuevaReceta.png';
+import Cookies from 'universal-cookie';
 
 import Dropdown from 'react-bootstrap/Dropdown'
 
@@ -36,7 +37,54 @@ const CustomToggle1 = React.forwardRef(({ children, onClick }, ref) => (
 
 
 class Principal extends React.Component {
+    constructor(props) {
+	    super(props)
+		this.state = {
+            userId : 0,
+            recetas : [],
+            favoritas : [],
+            categorias : [],
+            notificaciones: []
+        };
+	}
+    async componentDidMount(){
+        let resp = await fetch('/recetas');
+        let recetas = await resp.json();
+        const cookie = new Cookies();
+        let user = cookie.get('USER').id;
+        console.log(user);
+        resp = await fetch('/categorias');
+        let categorias = await resp.json();
+        resp = await fetch(`/favoritas/${encodeURIComponent(user)}`);
+        let favoritas = await resp.json();
+        resp = await fetch(`/notificaciones/${encodeURIComponent(user)}`);
+        let notificaciones = await resp.json();
+        this.setState({
+            userId: user,
+            recetas : recetas.recetas,
+            favoritas :  favoritas.recetas,
+            categorias: categorias.categorias,
+            notificaciones: notificaciones.notificaciones
+        });
+      }
+    renderCategoria = ({id, nombre}) => <Dropdown.Item key={id}>{nombre}</Dropdown.Item>
+    renderFavorita = ({id, nombre},i) => <li key={id}>{nombre}</li>
+    renderReceta = ({id,nombre,pasos,tiempo,imagen,categoria,usuario,rating,ingredientes,precio}) =>
+    <Publicacion 
+    key = {id}
+    idReceta={id} 
+    nombre={nombre} 
+    pasos={pasos} 
+    tiempo={tiempo} 
+    imagen={imagen}
+    categoria={categoria} 
+    usuario={usuario}
+     rating={rating} 
+     ingredientes={ingredientes} 
+     precio={precio} />;
+     
     render() {
+        const { userId, recetas, favoritas, categorias, notificaciones} = this.state;
         return (
             <div className="App">
                 <Barra />
@@ -66,9 +114,7 @@ class Principal extends React.Component {
                                 <Dropdown>
                                     <Dropdown.Toggle as={CustomToggle1}>Categoria</Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item >Action</Dropdown.Item>
-                                        <Dropdown.Item >Another action</Dropdown.Item>
-                                        <Dropdown.Item >Something else</Dropdown.Item>
+                                        {categorias.map(this.renderCategoria)}
                                     </Dropdown.Menu>
                                 </Dropdown>
                                 <Dropdown>
@@ -81,9 +127,7 @@ class Principal extends React.Component {
                                 </Dropdown>
                             </div>
                         </div>
-                        <Publicacion />
-                        <Publicacion />
-                        <Publicacion />
+                        {recetas.map(this.renderReceta)}
 
                     </div>
                     <div className="Favoritos">
@@ -93,39 +137,7 @@ class Principal extends React.Component {
                         </div>
                         <div className="RecetasFavoritas">
                             <ul>
-                                <li>
-                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                </li>
-                                <li>
-                                    Receta2
-                                </li>
-                                <li>
-                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                </li>
-                                <li>
-                                    Receta2
-                                </li>                            <li>
-                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                </li>
-                                <li>
-                                    Receta2
-                                </li>                            <li>
-                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                </li>
-                                <li>
-                                    Receta2
-                                </li>                            <li>
-                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                </li>
-                                <li>
-                                    Receta2
-                                </li>                            <li>
-                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                </li>
-                                <li>
-                                    Receta2
-                                </li>
-
+                                {favoritas.map(this.renderFavorita)}
                             </ul>
                         </div>
                     </div>
