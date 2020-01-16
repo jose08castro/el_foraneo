@@ -1,16 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
-import logoBN from './images/logoBN.png';
-import logoEF from './images/logo.png';
-import logoExplorar from './images/explore.png';
-import logoNotificaciones from './images/favorite.png';
-import logoUsuario from './images/person.png';
-import logoNuevaReceta from './images/nuevaReceta.png';
-
+import ReactDOM from 'react-dom';
 import Dropdown from 'react-bootstrap/Dropdown'
 
 import Publicacion from './publicacion.js';
 import Barra from './barra.js';
+import PlanAlimenticio from './planAlimenticio.js';
 
 
 import './principal.css';
@@ -36,6 +30,10 @@ const CustomToggle1 = React.forwardRef(({ children, onClick }, ref) => (
 
 
 class Principal extends React.Component {
+    generarPlan() {
+        ReactDOM.render(<PlanAlimenticio />, document.getElementById('root'));
+    }
+
     render() {
         return (
             <div className="App">
@@ -46,15 +44,9 @@ class Principal extends React.Component {
                         <div className="CuadroFiltros">
                             <div className="SuperiorFiltros">
                                 <label className="Subtitulo">Filtros</label>
-                                <button className="ButonGenerar"> Generar Plan </button>
+                                <button className="ButonGenerar" onClick={this.generarPlan}> Generar Plan </button>
                             </div>
                             <div className="InteriorCuadroFiltros">
-                                <link
-                                    rel="stylesheet"
-                                    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-                                    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-                                    crossorigin="anonymous"
-                                />
                                 <Dropdown>
                                     <Dropdown.Toggle as={CustomToggle1}>Organizar</Dropdown.Toggle>
                                     <Dropdown.Menu>
