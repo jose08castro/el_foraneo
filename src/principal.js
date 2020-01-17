@@ -6,13 +6,12 @@ import logoExplorar from './images/explore.png';
 import logoNotificaciones from './images/favorite.png';
 import logoUsuario from './images/person.png';
 import logoNuevaReceta from './images/nuevaReceta.png';
-import logoCompartir from './images/compartir.png';
+import Cookies from 'universal-cookie';
+
 import Dropdown from 'react-bootstrap/Dropdown'
 
-import FotoPasta from './images/pasta.png'
-import FotoChifrijo from './images/chifrijo.png'
-
 import Publicacion from './publicacion.js';
+import Barra from './barra.js';
 
 
 import './principal.css';
@@ -38,30 +37,57 @@ const CustomToggle1 = React.forwardRef(({ children, onClick }, ref) => (
 
 
 class Principal extends React.Component {
+    constructor(props) {
+	    super(props)
+		this.state = {
+            userId : 0,
+            recetas : [],
+            favoritas : [],
+            categorias : [],
+            notificaciones: []
+        };
+	}
+    async componentDidMount(){
+        let resp = await fetch('/recetas');
+        let recetas = await resp.json();
+        const cookie = new Cookies();
+        let user = cookie.get('USER').id;
+        console.log(user);
+        resp = await fetch('/categorias');
+        let categorias = await resp.json();
+        resp = await fetch(`/favoritas/${encodeURIComponent(user)}`);
+        let favoritas = await resp.json();
+        resp = await fetch(`/notificaciones/${encodeURIComponent(user)}`);
+        let notificaciones = await resp.json();
+        this.setState({
+            userId: user,
+            recetas : recetas.recetas,
+            favoritas :  favoritas.recetas,
+            categorias: categorias.categorias,
+            notificaciones: notificaciones.notificaciones
+        });
+      }
+    renderCategoria = ({id, nombre}) => <Dropdown.Item key={id}>{nombre}</Dropdown.Item>
+    renderFavorita = ({id, nombre},i) => <li key={id}>{nombre}</li>
+    renderReceta = ({id,nombre,pasos,tiempo,imagen,categoria,usuario,rating,ingredientes,precio}) =>
+    <Publicacion 
+    key = {id}
+    idReceta={id} 
+    nombre={nombre} 
+    pasos={pasos} 
+    tiempo={tiempo} 
+    imagen={imagen}
+    categoria={categoria} 
+    usuario={usuario}
+     rating={rating} 
+     ingredientes={ingredientes} 
+     precio={precio} />;
+     
     render() {
+        const { userId, recetas, favoritas, categorias, notificaciones} = this.state;
         return (
             <div className="App">
-                <div className="BarraPrincipal">
-                    <div className="BarraInicio">
-                        <img src={logoEF} className="ElForaneoP" alt="El Foráneo" />
-                        <h1 className="Titulo">El Foráneo</h1>
-                    </div>
-                    <div className="BarraBusqueda" >
-                        <ReactSearchBox
-                            placeholder="Buscar"
-                            inputBoxFontColor="red"
-                            onFocus={() => {
-                                console.log('This function is called when is focussed')
-                            }}
-                        />
-                    </div>
-                    <div className="barraIconos">
-                        <img src={logoExplorar} className="iconos" alt="Explorar" />
-                        <img src={logoNotificaciones} className="iconos" alt="Notificaciones" />
-                        <img src={logoNuevaReceta} className="iconos" alt="Nueva Receta" />
-                        <img src={logoUsuario} className="iconos" alt="Mi perfil" />
-                    </div>
-                </div>
+                <Barra />
                 <div className="App-contenido">
                     <div className="Muro">
 
@@ -88,9 +114,7 @@ class Principal extends React.Component {
                                 <Dropdown>
                                     <Dropdown.Toggle as={CustomToggle1}>Categoria</Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item >Action</Dropdown.Item>
-                                        <Dropdown.Item >Another action</Dropdown.Item>
-                                        <Dropdown.Item >Something else</Dropdown.Item>
+                                        {categorias.map(this.renderCategoria)}
                                     </Dropdown.Menu>
                                 </Dropdown>
                                 <Dropdown>
@@ -101,33 +125,23 @@ class Principal extends React.Component {
                                         <Dropdown.Item >Playo</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
+                            </div>
+                        </div>
+                        {recetas.map(this.renderReceta)}
+
+                    </div>
+                    <div className="Favoritos">
+
+                        <div className="HeaderFavoritos">
+                            Mis Recetas Favoritas
+                        </div>
+                        <div className="RecetasFavoritas">
+                            <ul>
+                                {favoritas.map(this.renderFavorita)}
+                            </ul>
                         </div>
                     </div>
-                    <Publicacion />
-                    <Publicacion />
-                    <Publicacion />
-
                 </div>
-                <div className="Favoritos">
-
-                    <div className="HeaderFavoritos">
-                        Mis Recetas Favoritas
-                        </div>
-                    <div className="RecetasFavoritas">
-                        <ul>
-                            <li>
-                                Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                </li>
-                            <li>
-                                Receta2
-                                </li>
-
-                        </ul>
-                    </div>
-
-
-                </div>
-            </div>
             </div >
 
 

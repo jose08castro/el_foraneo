@@ -20,19 +20,19 @@
   font-weight: bold;
 }
 
+.Muro {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 30px;
+}
+
 .Favoritos {
   display: flex;
   flex-direction: column;
   margin: 30px;
   height: 85vh;
   width: 20vw;
-}
-
-.Muro {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 30px;
 }
 
 .HeaderFavoritos {
@@ -49,17 +49,32 @@
   align-items: flex-start;
   background-color: #1E332B;
   height: 100vh;
+  width: 100%;
   border-radius: 0px 0px 30px 30px;
   overflow: auto;
+  word-break: break-all;
+  padding: 4px;
 }
 
-.RecetasFavoritas ul {
-  list-style: none;
+.RecetasFavoritas ul {  
   text-align: left;
 }
 
-.RecetasFavoritas::-webkit-scrollbar {
-  display: none;
+::-webkit-scrollbar-track{
+  color: #9B0000;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: #E18737; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9B0000; 
 }
 
 .BarraPrincipal {
@@ -70,6 +85,7 @@
   color: white;
   height: 10vh;
   padding: 0px 60px;
+
 }
 
 .BarraInicio {
@@ -162,7 +178,7 @@
   padding: 10px;
   background-color: #E18737;
   width: 100%;
-  height: 8vh;
+  height: 60px;
   border-radius: 30px 30px 0px 0px;
 }
 
@@ -196,24 +212,24 @@
 
 .FotoReceta {
   display: flex;
+  align-items: center;
+  justify-content: center;
   width: 50vw;
   background-color: #1E332B;
 }
 
 .TamanoFoto {
-  display: flex;
   height: auto;
   width: auto;
   max-width: 90%;
   max-height: 90%;
   margin: 12px;
-  align-items: center;
-  justify-content: center;
   object-fit: contain;
 }
 
 .PasosReceta {
   width: 50vw;
+  overflow: auto;
 }
 
 .Instrucciones {
@@ -223,13 +239,12 @@
   height: 45vh;
   position: static;
   font-size: small;
-  overflow: auto;
 }
 
 .BarraCalificaciones {
   display: flex;
   background-color: #E18737;
-  height: 8vh;
+  height: 60px;
   border-radius: 0px 0px 30px 30px;
 }
 
