@@ -79,6 +79,20 @@ router.get('/api/notificaciones/read',async (req, res) => {
     }
 });
 
+
+// router.get('/api/recetas/crear',async (req,res)=>{
+//     try{
+//         let dbResult = await DB.default.recetas.insertar(req.body.nombre);
+//         res.send(dbResult);
+//     }
+//     catch(e){
+//         console.log(e);
+//         res.sendStatus(500);
+//     }
+// });
+
+
+
 // router.get('*', (req, res) => {                       
 //     res.sendFile(path.resolve('./scr/App.js'));                               
 //   });

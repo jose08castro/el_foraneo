@@ -30,6 +30,49 @@ const search = async (usuario,password) =>{
     });
 }
 
+// const insert = async (nombre,pasos,tiempo,imagen,categoria,usuario) =>{
+//     return new Promise((resolve,reject) =>{
+//         let sql = "INSERT INTO recetas (nombre,pasos,tiempo,imagen,categoria,usuario) VALUES (?,?,?,?,?,?)"
+//         let params = [nombre,pasos,tiempo,imagen,categoria,usuario];
+
+//         connection.connection.query(sql,params, (err, results) =>{
+//             return (err) ?  reject(err) : resolve({result: results.length});
+//         });
+
+//         let sql1= "INSERT INTO ingredientesxreceta (id_ingrediente,id_receta,cantidad) VALUES (?,?,?)"
+//         let params = [ id_ingrediente, id_receta,cantidad];
+       
+//         connection.connection.query(sql,params, (err, results) =>{
+//             return (err) ?  reject(err) : resolve({result: results.length});
+//         });
+
+//     });
+// }
+
+const search = async (usuario,password) =>{
+    return new Promise((resolve,reject) =>{
+        let sql = "SELECT * FROM usuarios WHERE usuario = ? AND password = ?"
+        let params = [usuario,password];
+        console.log(usuario);
+        console.log(password);
+        connection.connection.query(sql,params, (err, results) =>{
+            return (err) ?  reject(err) : resolve({result: results.length});
+        });
+    });
+}
+
+// const me_gusta = async (id_receta,id_usuario,rating) => {
+//     return new Promise((resolve,reject) =>{
+//         let sql = "INSERT INTO  rating_receta (id_receta, id_usuario, rating) VALUES (?,?,?)"
+//         let params = [id_receta,id_usuario,rating];
+
+//         connection.connection.query(sql,params, (err, results) =>{
+//             return (err) ?  reject(err) : resolve({result: results.length});
+//         });
+//     });
+// }
+
+
 const favoritas = async(id) =>{
 
 }
@@ -39,5 +82,7 @@ module.exports.favoritas = favoritas;
 module.exports.default = {
     all,
     search,
-    favoritas
+     favoritas//,
+    // insert,
+    // me_gusta
 }

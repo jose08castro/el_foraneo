@@ -45,6 +45,18 @@ const register = async (nombre, apellidos, correo, usuario, password) =>{
 }
 
 
+// const seguir_usario = async (usuario,usuario_a_seguir) =>{
+//     return new Promise((resolve,reject) =>{
+//         let sql = "INSERT INTO seguidores (id_seguidor,id_seguido) VALUES (?,?)"
+//         let params = [usuario,usuario_a_seguir];
+
+//         connection.connection.query(sql,params, (err, results) =>{
+//             return (err) ?  reject(err) : resolve({result: results.length});
+//         });
+//     });
+// }
+
+
 module.exports.all = all;
 module.exports.login = login;
 module.exports.register = register;
