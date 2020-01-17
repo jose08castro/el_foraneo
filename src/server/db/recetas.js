@@ -149,17 +149,8 @@ const favoritas = async(idUsuario) =>{
 //     });
 // }
 
-const search = async (usuario,password) =>{
-    return new Promise((resolve,reject) =>{
-        let sql = "SELECT * FROM usuarios WHERE usuario = ? AND password = ?"
-        let params = [usuario,password];
-        console.log(usuario);
-        console.log(password);
-        connection.connection.query(sql,params, (err, results) =>{
-            return (err) ?  reject(err) : resolve({result: results.length});
-        });
-    });
-}
+
+
 
 // const me_gusta = async (id_receta,id_usuario,rating) => {
 //     return new Promise((resolve,reject) =>{
@@ -173,7 +164,7 @@ const search = async (usuario,password) =>{
 // }
 
 
-const favoritas = async(id) =>{
+
 const categorias = async () =>{
     return new Promise((resolve,reject)=>{
         connection.connection.query(GETCATEGORY, async (err, results) =>{
