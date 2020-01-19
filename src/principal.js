@@ -8,10 +8,12 @@ import logoUsuario from './images/person.png';
 import logoNuevaReceta from './images/nuevaReceta.png';
 import Cookies from 'universal-cookie';
 
+import ReactDOM from 'react-dom';
 import Dropdown from 'react-bootstrap/Dropdown'
 
 import Publicacion from './publicacion.js';
 import Barra from './barra.js';
+import PlanAlimenticio from './planAlimenticio.js';
 
 
 import './principal.css';
@@ -83,6 +85,11 @@ class Principal extends React.Component {
      ingredientes={ingredientes} 
      precio={precio} />;
      
+
+    generarPlan() {
+        ReactDOM.render(<PlanAlimenticio />, document.getElementById('root'));
+    }
+
     render() {
         const { userId, recetas, favoritas, categorias, notificaciones} = this.state;
         return (
@@ -94,7 +101,7 @@ class Principal extends React.Component {
                         <div className="CuadroFiltros">
                             <div className="SuperiorFiltros">
                                 <label className="Subtitulo">Filtros</label>
-                                <button className="ButonGenerar"> Generar Plan </button>
+                                <button className="ButonGenerar" onClick={this.generarPlan}> Generar Plan </button>
                             </div>
                             <div className="InteriorCuadroFiltros">
                                 <link
