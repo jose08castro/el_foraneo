@@ -110,7 +110,7 @@ class IngredienteTable extends React.Component {
                             {ingrediente}
                         </tbody>
                     </table>
-                    <button class="TbotonMas" type="button" onClick={this.props.onRowAdd}>+</button>
+                    <button className="TbotonMas" type="button" onClick={this.props.onRowAdd}>+</button>
                 </div>
         );
     }
@@ -154,7 +154,7 @@ class EditableCell extends React.Component {
     render() {
         return (
             <td>
-                <input class="Tinput" type='text'
+                <input className="Tinput" type='text'
                     name={this.props.cellData.type}
                     id={this.props.cellData.id}
                     value={this.props.cellData.value}

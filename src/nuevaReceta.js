@@ -17,36 +17,36 @@ class NuevaReceta extends React.Component {
                             <div className="Info">
                                 <img src={logoUsuario} className="iconos" alt="Notificaciones" />
                                 <div className="tiempo" >
-                                    <p class="NuevaReceta"> Nueva Receta </p>
+                                    <p className="NuevaReceta"> Nueva Receta </p>
                                 </div>
                             </div>
                         </div>
                         <div className="CuerpoNuevaReceta">
                             <div className="NRcentrar">
                                 <div className="NRrow">
-                                    <div class="NRizq">Nombre receta:</div>
-                                    <div class="NRder"><input class="NRInput" type="text" id="inputNombreReceta" required></input></div>
+                                    <div className="NRizq">Nombre receta:</div>
+                                    <div className="NRder"><input className="NRInput" type="text" id="inputNombreReceta" required></input></div>
                                 </div>
                                 <div className="NRrow">
-                                    <div class="NRizq">Tiempo estimado:</div>
-                                    <div class="NRder"><input class="NRInput" type="text" id="inputTiempoEstimado" required></input></div>
+                                    <div className="NRizq">Tiempo estimado:</div>
+                                    <div className="NRder"><input className="NRInput" type="text" id="inputTiempoEstimado" required></input></div>
                                 </div>
                                 <div className="NRrow">
-                                    <div class="NRizq">Agregar ingrediente:</div>
-                                    <div class="NRfull"><Tabla /></div>
+                                    <div className="NRizq">Agregar ingrediente:</div>
+                                    <div className="NRfull"><Tabla /></div>
                                 </div>
                                 <div className="NRrow">
-                                    <div class="NRizq">Pasos para elaborar:</div>
-                                    <div class="NRder"><textarea class="NRInput" type="text" id="inputPasos" rows="5" required /></div>
+                                    <div className="NRizq">Pasos para elaborar:</div>
+                                    <div className="NRder"><textarea className="NRInput" type="text" id="inputPasos" rows="5" required /></div>
                                 </div>
                                 <div className="NRrow">
-                                    <div class="NRizq">Agregar imagen:</div>
-                                    <div class="NRder"><input type="file" name="pic" accept="image/*" id="inputAgregarImg" required></input></div>
+                                    <div className="NRizq">Agregar imagen:</div>
+                                    <div className="NRder"><input type="file" name="pic" accept="image/*" id="inputAgregarImg" required></input></div>
                                 </div>
                             </div>
                         </div>
                         <div className="BarraCalificaciones">
-                            <div class="NRbotonDer">
+                            <div className="NRbotonDer">
                                 <button className="NRboton">Agregar Receta</button>
                             </div>
                         </div>

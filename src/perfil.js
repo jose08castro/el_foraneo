@@ -33,10 +33,9 @@ class Perfil extends React.Component {
                 <Barra />
                 <div className="App-contenido">
                     <div className="Muro">
-                        <div class="Nombreperfil">
-                            <div class="Parriba"><p class="PdistanciaMargin">{this.userName}</p></div>
-                            <div class="PdistanciaMargin"><p>{this.userNickName}</p></div>
-                            {/* <button class="BcerrarSesion">Cerrar Sesión</button> */}
+                        <div className="Nombreperfil">
+                            <div className="Parriba"><p className="PdistanciaMargin">{this.userName}</p></div>
+                            <div className="PdistanciaMargin"><p>{this.userNickName}</p></div>
                         </div>
                         <div className="CuadroFiltros">
                             <div className="SuperiorFiltros">

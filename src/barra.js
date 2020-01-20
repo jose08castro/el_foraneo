@@ -14,31 +14,38 @@ import Principal from './principal.js'
 import Perfil from './perfil.js'
 import NuevaReceta from './nuevaReceta.js';
 import Notificacion from './notificacion.js'
+import Busqueda from './busqueda.js'
 
 import ReactSearchBox from 'react-search-box';
 
 class Barra extends React.Component {
     state = { render: false }
-    displNotificacion = () => {
+    stateB = {renderB: false }
+
+    displNotificacion(){
         this.setState({ render: !this.state.render })
     }
 
-    IngPrincipal() {
+    ingPrincipal() {
         ReactDOM.render(<Principal />, document.getElementById('root'));
     }
 
-    IngPerfil() {
+    ingPerfil() {
         ReactDOM.render(<Perfil />, document.getElementById('root'));
     }
 
-    IngNuevaReceta() {
+    ingNuevaReceta() {
         ReactDOM.render(<NuevaReceta />, document.getElementById('root'));
     }
 
-   CerrarSesion() {
+    cerrarSesion() {
         ReactDOM.render(<App />, document.getElementById('root'));
     }
-    
+
+    ingBusqueda() {
+        ReactDOM.render(<Busqueda />, document.getElementById('root'));
+    }
+
     render() {
         return (
             <div className="BarraPrincipal">
@@ -51,17 +58,17 @@ class Barra extends React.Component {
                         placeholder="Buscar"
                         inputBoxFontColor="red"
                         onFocus={() => {
-                            console.log('This function is called when is focussed')
+                            this.ingBusqueda();
                         }}
                     />
                 </div>
                 <div className="barraIconos">
-                    <img src={logoExplorar} className="iconos" alt="Explorar" onClick={() => this.IngPrincipal()}/>
-                    <img src={logoUsuario} className="iconos" alt="Mi perfil" onClick={() => this.IngPerfil()} />
+                    <img src={logoExplorar} className="iconos" alt="Explorar" onClick={() => this.ingPrincipal()} />
+                    <img src={logoUsuario} className="iconos" alt="Mi perfil" onClick={() => this.ingPerfil()} />
                     <img src={logoNotificaciones} className="iconos" alt="Notificaciones" onClick={() => this.displNotificacion()} />
                     <div className="PosicionNotificacion">{this.state.render && <Notificacion />}</div>
-                    <img src={logoNuevaReceta} className="iconos" alt="Nueva Receta" onClick={() => this.IngNuevaReceta()} />
-                    <img src={logoLogout} className="iconos" alt="Cerrar Sesion" onClick={() => this.CerrarSesion()}/>
+                    <img src={logoNuevaReceta} className="iconos" alt="Nueva Receta" onClick={() => this.ingNuevaReceta()} />
+                    <img src={logoLogout} className="iconos" alt="Cerrar Sesion" onClick={() => this.cerrarSesion()} />
                 </div>
             </div>
         );
