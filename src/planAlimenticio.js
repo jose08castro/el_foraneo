@@ -6,20 +6,6 @@ import Categoria from './categoria.js';
 
 import './planAlimenticio.css';
 
-const CustomToggle1 = React.forwardRef(({ children, onClick }, ref) => (
-    <a
-        href=""
-        ref={ref}
-        onClick={e => {
-            e.preventDefault();
-            onClick(e);
-        }}
-        className="DropFiltroPlan"
-    >
-        {children}
-        &#x25bc;
-    </a>
-));
 
 class PlanAlimenticio extends React.Component {
     constructor(props) {

@@ -6,6 +6,7 @@ import logoNotificaciones from './images/favorite.png';
 import logoUsuario from './images/person.png';
 import logoNuevaReceta from './images/nuevaReceta.png';
 import Principal from './principal.js';
+import Cookies from 'universal-cookie';
 
 import './principal.css';
 
@@ -13,13 +14,11 @@ import logoLogout from './images/logout.png'
 
 import './principal.css';
 import App from './App.js'
-import Principal from './principal.js'
 import Perfil from './perfil.js'
 import NuevaReceta from './nuevaReceta.js';
 import Notificacion from './notificacion.js'
 import Busqueda from './busqueda.js'
 
-import ReactSearchBox from 'react-search-box';
 
 class Barra extends React.Component {
 
@@ -43,6 +42,8 @@ class Barra extends React.Component {
     }
 
     cerrarSesion() {
+        const cookie = new Cookies();
+        cookie.remove('USER');
         ReactDOM.render(<App />, document.getElementById('root'));
     }
 
@@ -60,7 +61,7 @@ class Barra extends React.Component {
         return (
             <div className="BarraPrincipal">
                 <div className="BarraInicio">
-                    <img src={logoEF} className="ElForaneoP" alt="El Foráneo" onClick={this.cargarPrincipal} />
+                    <img src={logoEF} className="ElForaneoP" alt="El Foráneo" onClick={() => this.ingPrincipal()} />
                     <h1 className="Titulo">El Foráneo</h1>
                 </div>
                 <div className="BarraBusqueda" >
