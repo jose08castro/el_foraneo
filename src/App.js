@@ -1,6 +1,7 @@
 
 import React from 'react';
 import logoEF from './images/logo.png';
+
 import './App.css';
 import Principal from './principal.js';
 import ReactDOM from 'react-dom';

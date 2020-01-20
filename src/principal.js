@@ -9,6 +9,14 @@ import logoNuevaReceta from './images/nuevaReceta.png';
 import Cookies from 'universal-cookie';
 
 import ReactDOM from 'react-dom';
+import logo from './logo.svg';
+import logoBN from './images/logoBN.png';
+import logoEF from './images/logo.png';
+import logoExplorar from './images/explore.png';
+import logoNotificaciones from './images/favorite.png';
+import logoUsuario from './images/person.png';
+import logoNuevaReceta from './images/nuevaReceta.png';
+
 import Dropdown from 'react-bootstrap/Dropdown'
 
 import Publicacion from './publicacion.js';
