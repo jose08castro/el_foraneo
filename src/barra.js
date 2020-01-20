@@ -57,9 +57,8 @@ class Barra extends React.Component {
                     <ReactSearchBox
                         placeholder="Buscar"
                         inputBoxFontColor="red"
-                        onFocus={() => {
-                            this.ingBusqueda();
-                        }}
+                        onFocus={() => {console.log("Buscador enfocado")}}
+                        onChange={this.ingBusqueda()}
                     />
                 </div>
                 <div className="barraIconos">
