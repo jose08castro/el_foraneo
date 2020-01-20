@@ -1,265 +1,307 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-contenido {
-  background: #faeeae;
-  /* height: 90vh; */
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  padding: 0px 40px;
-  /* overflow-y:scroll; */
+    background: #faeeae;
+    /* height: 90vh; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    padding: 0px 40px;
+    /* overflow-y:scroll; */
 }
 
 .Titulo {
-  display: block;
-  font-size: 2em;
-  font-weight: bold;
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .Muro {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 30px;
 }
 
 .Favoritos {
-  display: flex;
-  flex-direction: column;
-  margin: 30px;
-  height: 85vh;
-  width: 20vw;
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+    height: 85vh;
+    width: 20vw;
 }
 
 .HeaderFavoritos {
-  background-color: #E18737;
-  border-radius: 30px 30px 0px 0px;
-  height: 10vh;
-  padding-top: 1vh;
-  font-size: small
+    background-color: #E18737;
+    border-radius: 30px 30px 0px 0px;
+    height: 10vh;
+    padding-top: 1vh;
+    font-size: small
 }
 
 .RecetasFavoritas {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background-color: #1E332B;
-  height: 100vh;
-  width: 100%;
-  border-radius: 0px 0px 30px 30px;
-  overflow: auto;
-  word-break: break-all;
-  padding: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #1E332B;
+    height: 100vh;
+    width: 100%;
+    border-radius: 0px 0px 30px 30px;
+    overflow: auto;
+    word-break: break-all;
+    padding: 4px;
 }
 
-.RecetasFavoritas ul {  
-  text-align: left;
+.RecetasFavoritas ul {
+    text-align: left;
 }
 
-::-webkit-scrollbar-track{
-  color: #9B0000;
+::-webkit-scrollbar-track {
+    color: #9B0000;
 }
+
+
 /* width */
-::-webkit-scrollbar {
-  width: 8px;
-}
 
+::-webkit-scrollbar {
+    width: 8px;
+}
 
 ::-webkit-scrollbar-thumb {
-  background: #E18737; 
+    background: #E18737;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9B0000; 
+    background: #9B0000;
 }
 
 .BarraPrincipal {
-  background: #9B0000;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  color: white;
-  height: 10vh;
-  padding: 0px 60px;
-
+    background: #9B0000;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: white;
+    height: 10vh;
+    padding: 0px 60px;
 }
 
 .BarraInicio {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  float: left;
-  left: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    float: left;
+    left: 0;
 }
 
 .iconos {
-  height: 30px;
-  margin: 0px 20px;
+    height: 30px;
+    margin: 0px 20px;
 }
 
 .barraIconos {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .ElForaneoP {
-  height: 50px;
-  margin: 0px 20px;
+    height: 50px;
+    margin: 0px 20px;
 }
 
 .BarraBusqueda {
-  display: flex;
-  align-items: center;
-  /* background-color: #E18737; */
+    display: flex;
+    align-items: center;
+    /* background-color: #E18737; */
 }
 
 .CuadroFiltros {
-  display: flex;
-  flex-direction: column;
-  width: 60vw;
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
 }
 
 .SuperiorFiltros {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  height: 9vh;
-  border-radius: 30px 30px 0px 0px;
-  background: #E18737;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 9vh;
+    border-radius: 30px 30px 0px 0px;
+    background: #E18737;
 }
 
 .ButonGenerar {
-  background-color: #1E332B;
-  border-radius: 30px;
-  height: 6vh;
-  width: 12vw;
-  margin: 1vh;
-  border-style: none;
-  color: white;
-  font-size: 20px;
+    background-color: #1E332B;
+    border-radius: 30px;
+    height: 6vh;
+    width: 12vw;
+    margin: 1vh;
+    border-style: none;
+    color: white;
+    font-size: 20px;
 }
 
 .InteriorCuadroFiltros {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  height: 9vh;
-  background-color: #1E332B;
-  border-radius: 0 0 30px 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 9vh;
+    background-color: #1E332B;
+    border-radius: 0 0 30px 30px;
 }
 
 .CustomToggle a {
-  background-color: #E18737;
-  color: #faeeae;
-  border-color: black;
+    background-color: #E18737;
+    color: #faeeae;
+    border-color: black;
 }
 
 .CuadroRecetas {
-  display: flex;
-  flex-direction: column;
-  width: 60vw;
-  margin: 15px 0px;
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+    margin: 15px 0px;
 }
 
 .HeadReceta {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  /* margin-top: 30px; */
-  padding: 10px;
-  background-color: #E18737;
-  width: 100%;
-  height: 60px;
-  border-radius: 30px 30px 0px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* margin-top: 30px; */
+    padding: 10px;
+    background-color: #E18737;
+    width: 100%;
+    height: 60px;
+    border-radius: 30px 30px 0px 0px;
 }
 
 .barraIconosReceta {
-  display: flex;
-  justify-content: end;
+    display: flex;
+    justify-content: end;
 }
 
 .Info {
-  display: flex;
-  flex-direction: row;
-  margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
 }
 
 .tiempo {
-  display: flex;
-  flex-direction: column;
-  font-size: small;
-  justify-content: flex-start;
-  align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    font-size: small;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .CuerpoReceta {
-  background-color: #1E332B;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 45vh;
-  ;
+    background-color: #1E332B;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 45vh;
 }
 
 .FotoReceta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50vw;
-  background-color: #1E332B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50vw;
+    background-color: #1E332B;
 }
 
 .TamanoFoto {
-  height: auto;
-  width: auto;
-  max-width: 90%;
-  max-height: 90%;
-  margin: 12px;
-  object-fit: contain;
+    height: auto;
+    width: auto;
+    max-width: 90%;
+    max-height: 90%;
+    margin: 12px;
+    object-fit: contain;
 }
 
 .PasosReceta {
-  width: 50vw;
-  overflow: auto;
+    width: 50vw;
+    overflow: auto;
 }
 
 .Instrucciones {
-  font-size: small;
-  /* width: 250px;
+    font-size: small;
+    /* width: 250px;
     height: 300px; */
-  height: 45vh;
-  position: static;
-  font-size: small;
+    height: 45vh;
+    position: static;
+    font-size: small;
 }
 
 .BarraCalificaciones {
-  display: flex;
-  background-color: #E18737;
-  height: 60px;
-  border-radius: 0px 0px 30px 30px;
+    display: flex;
+    background-color: #E18737;
+    height: 60px;
+    border-radius: 0px 0px 30px 30px;
 }
 
 .Calificaciones {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .DropFiltro {
-  font-style: normal;
-  font-size: 18px;
-  color: white;
-  font-weight: bold;
-  background: #E18737;
-  padding: 3px;
-  border-radius: 30px;
+    font-style: normal;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    background: #E18737;
+    padding: 3px;
+    border-radius: 30px;
+}
+
+.PosicionNotificacion {
+    position: absolute;
+    left: 60%;
+    top: 40px;
+    z-index: 1;
+}
+
+.Nombreperfil {
+    border-radius: 20px;
+    width: 100%;
+    background-color: #1E332B;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-align: right;
+    font-size: 20px;
+}
+
+.Parriba {
+    background-color: #e18737;
+    font-size: 30px;
+    border-radius: 20px 20px 0px 0px;
+}
+
+.PdistanciaMargin {
+    margin-right: 20px;
+}
+
+.BcerrarSesion {
+    border: none;
+    font-size: 15px;
+    margin-bottom: 6px;
+}
+
+.Nombreperfil p {
+    margin-bottom: 0px;
+}
+
+.BcerrarSesion:hover {
+    background-color: #9b0000;
+    color: #FFFFFF;
 }
