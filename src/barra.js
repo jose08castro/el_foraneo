@@ -20,9 +20,9 @@ import ReactSearchBox from 'react-search-box';
 
 class Barra extends React.Component {
     state = { render: false }
-    stateB = {renderB: false }
+    stateB = { renderB: false }
 
-    displNotificacion(){
+    displNotificacion() {
         this.setState({ render: !this.state.render })
     }
 
@@ -42,6 +42,12 @@ class Barra extends React.Component {
         ReactDOM.render(<App />, document.getElementById('root'));
     }
 
+    _handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            this.ingBusqueda();
+        }
+    }
+
     ingBusqueda() {
         ReactDOM.render(<Busqueda />, document.getElementById('root'));
     }
@@ -54,17 +60,19 @@ class Barra extends React.Component {
                     <h1 className="Titulo">El Foráneo</h1>
                 </div>
                 <div className="BarraBusqueda" >
-                    <ReactSearchBox
+                    <input placeholder="Búsqueda..." type="text" onKeyDown={this._handleKeyDown}></input>
+                    {/* <ReactSearchBox
                         placeholder="Buscar"
                         inputBoxFontColor="red"
-                        onFocus={() => {
-                            this.ingBusqueda()
-                        }}
+                        // onFocus={() => {
+                        //     this.ingBusqueda()
+                        // }}
+                        onSelect={this.ingBusqueda()}
                         // onChange={this.ingBusqueda()}
                         // onFocus={() => {
                         //     this.ingBusqueda();
                         // }}
-                    />
+                    /> */}
                 </div>
                 <div className="barraIconos">
                     <img src={logoExplorar} className="iconos" alt="Explorar" onClick={() => this.ingPrincipal()} />
