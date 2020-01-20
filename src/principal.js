@@ -40,21 +40,23 @@ const CustomToggle1 = React.forwardRef(({ children, onClick }, ref) => (
 
 class Principal extends React.Component {
     constructor(props) {
-	    super(props)
-		this.state = {
-            userId : 0,
-            recetas : [],
-            favoritas : [],
-            categorias : [],
-            notificaciones: []
+        super(props)
+        this.state = {
+            userId: 0,
+            recetas: [],
+            favoritas: [],
+            categorias: [],
+            notificaciones: [],
+            categoria: 0,
+            precios: 0,
+            organizar: 0
         };
-	}
-    async componentDidMount(){
+    }
+    async componentDidMount() {
         let resp = await fetch('/recetas');
         let recetas = await resp.json();
         const cookie = new Cookies();
         let user = cookie.get('USER').id;
-        console.log(user);
         resp = await fetch('/categorias');
         let categorias = await resp.json();
         resp = await fetch(`/favoritas/${encodeURIComponent(user)}`);
@@ -63,35 +65,36 @@ class Principal extends React.Component {
         let notificaciones = await resp.json();
         this.setState({
             userId: user,
-            recetas : recetas.recetas,
-            favoritas :  favoritas.recetas,
+            recetas: recetas.recetas,
+            favoritas: favoritas.recetas,
             categorias: categorias.categorias,
             notificaciones: notificaciones.notificaciones
         });
-      }
-    renderCategoria = ({id, nombre}) => <Dropdown.Item key={id}>{nombre}</Dropdown.Item>
-    renderFavorita = ({id, nombre},i) => <li key={id}>{nombre}</li>
-    renderReceta = ({id,nombre,pasos,tiempo,imagen,categoria,usuario,rating,ingredientes,precio}) =>
-    <Publicacion 
-    key = {id}
-    idReceta={id} 
-    nombre={nombre} 
-    pasos={pasos} 
-    tiempo={tiempo} 
-    imagen={imagen}
-    categoria={categoria} 
-    usuario={usuario}
-     rating={rating} 
-     ingredientes={ingredientes} 
-     precio={precio} />;
-     
+    }
+    renderCategoria = ({ id, nombre }) => <option key={id} value={id}>{nombre}</option>
+    renderFavorita = ({ id, nombre }, i) => <li key={id}>{nombre}</li>
+    renderReceta = ({ id, nombre, pasos, tiempo, imagen, categoria, usuario, rating, ingredientes, precio }) =>
+        <Publicacion
+            key={id}
+            idReceta={id}
+            nombre={nombre}
+            pasos={pasos}
+            tiempo={tiempo}
+            imagen={imagen}
+            categoria={categoria}
+            usuario={usuario}
+            rating={rating}
+            ingredientes={ingredientes}
+            precio={precio} />;
 
-    generarPlan() {
-        ReactDOM.render(<PlanAlimenticio />, document.getElementById('root'));
+
+    generarPlan = () => {
+        ReactDOM.render(<PlanAlimenticio recetas={this.state.recetas} categorias={this.state.categorias} notificaciones={this.state.notificaciones} />, document.getElementById('root'));
     }
 
     render() {
-        const { userId, recetas, favoritas, categorias, notificaciones} = this.state;
+        const { userId, recetas, favoritas, categorias, notificaciones } = this.state;
+
         return (
             <div className="App">
                 <Barra />
@@ -110,28 +113,18 @@ class Principal extends React.Component {
                                     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
                                     crossOrigin="anonymous"
                                 />
-                                <Dropdown>
-                                    <Dropdown.Toggle as={CustomToggle1}>Organizar</Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item >Action</Dropdown.Item>
-                                        <Dropdown.Item >Another action</Dropdown.Item>
-                                        <Dropdown.Item >Something else</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                                <Dropdown>
-                                    <Dropdown.Toggle as={CustomToggle1}>Categoria</Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        {categorias.map(this.renderCategoria)}
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                                <Dropdown>
-                                    <Dropdown.Toggle as={CustomToggle1}>Rango de Precios</Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item >Puto</Dropdown.Item>
-                                        <Dropdown.Item >Tapia</Dropdown.Item>
-                                        <Dropdown.Item >Playo</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
+                                <select className="DropFiltroPlan" value={this.state.organizar} onChange={(e) => { this.setState({ organizar: e.target.value }) }}>
+                                    <option disabled hidden key={0} value={0}>Organizar</option>
+                                    {[{ id: 1, nombre: "Más antiguos" }, { id: 2, nombre: "Más recientes" }, { id: 3, nombre: "Mejor calificadas" }].map(this.renderCategoria)}
+                                </select>
+                                <select className="DropFiltroPlan" value={this.state.categoria} onChange={(e) => { this.setState({ categoria: e.target.value }) }}>
+                                    <option disabled hidden key={0} value={0}>Categoría</option>
+                                    {categorias.map(this.renderCategoria)}
+                                </select>
+                                <select className="DropFiltroPlan" value={this.state.precios} onChange={(e) => { this.setState({ precios: e.target.value }) }}>
+                                    <option disabled hidden key={0} value={0}>Rango de Precios</option>
+                                    {[{ id: 1, nombre: "0-1000" }, { id: 2, nombre: "1000-2000" }, { id: 3, nombre: "2000-3000" }, { id: 4, nombre: "3000+" }].map(this.renderCategoria)}
+                                </select>
                             </div>
                         </div>
                         {recetas.map(this.renderReceta)}

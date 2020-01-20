@@ -63,6 +63,23 @@ router.get('/recetas', async (req , res)=> {
     }
 });
 
+router.get('/plan', async (req , res)=> {
+    try{
+        let min= req.query.min,max=req.query.max,id_categoria=req.query.id_categoria,cantidad=req.query.cantidad;
+        let recetas =  await DB.default.recetas.plan(min,max,id_categoria,cantidad);
+        if(recetas.recetas.length > 0){
+            res.json({recetas:recetas, result:true});
+        }
+        else{
+            res.json({result:false});
+        }
+    }
+    catch(e){
+        console.log(e);
+        res.json({result:false});
+    }
+});
+
 router.get('/favoritas/:id_usuario', async (req, res) => {
     try{
         let recetas = {}
@@ -84,7 +101,6 @@ router.get('/favoritas/:id_usuario', async (req, res) => {
 router.get('/categorias', async (req, res) =>{
     try{
         let categorias = await DB.default.recetas.categorias(); //Categorias
-        console.log(categorias);
         res.json(categorias);
     }
     catch(e){

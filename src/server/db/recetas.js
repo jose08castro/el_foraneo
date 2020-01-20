@@ -7,7 +7,7 @@ const SEARCH = "SELECT r.id, r.nombre as nombre, r.pasos, r.tiempo, r.imagen, c.
 const FINDID = "SELECT r.id, r.nombre as nombre, r.pasos, r.tiempo, r.imagen, c.nombre as categoria, u.usuario FROM recetas r join usuarios u on r.id_usuario = u.id join categorias c on r.id_categoria = c.id WHERE r.id = ?"
 const GETCATEGORY = "SELECT id, nombre FROM categorias";
 const GETFAVORITAS = "SELECT r.id, r.nombre FROM recetas_favoritas rf join recetas r on rf.id_receta = r.id WHERE rf.id_usuario = ?"
-
+const PLAN = 'CALL sp_get_plan_recetas(?,?,?,?)'
 function getRating(id){
     return new Promise((resolve,reject)=>{
         let params = [id]; 
@@ -144,15 +144,41 @@ const categorias = async () =>{
     });
 }
 
+
+const plan = async (min,max,id_categoria,cantidad) =>{
+    return new Promise((resolve,reject)=>{
+        connection.connection.query(PLAN,[min,max,id_categoria,cantidad], async (err, results) =>{
+            if(err)
+                return reject(err);
+            else{
+                let newResults = [];
+                for(let i = 0; i < results[0].length; i++){
+                    let receta = results[0][i];
+                    if(typeof receta !== "undefined"){
+                        receta = await armarReceta(receta);
+                        newResults.push(receta);
+                    }
+                }
+                resolve({recetas: newResults});
+            }
+            
+        });
+
+    });
+}
+
 module.exports.all = all;
 module.exports.search = search;
 module.exports.favoritas = favoritas;
 module.exports.find = find;
 module.exports.categorias = categorias;
+module.exports.plan = plan;
+
 module.exports.default = {
     all,
     search,
     favoritas,
     find,
-    categorias
+    categorias,
+    plan
 }
