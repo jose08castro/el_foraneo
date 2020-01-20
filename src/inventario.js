@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import logo from './logo.svg';
 import logoBN from './images/logoBN.png';
 import logoEF from './images/logo.png';
@@ -12,36 +11,31 @@ import Dropdown from 'react-bootstrap/Dropdown'
 
 import Publicacion from './publicacion.js';
 import Barra from './barra.js';
-import PlanAlimenticio from './planAlimenticio.js';
 
 
-import './principal.css';
+// import './principal.css'; Puede que se utilice el mismo estilo
 
 
 import ReactSearchBox from 'react-search-box';
 // Esta funcion se supone que le da el estilo al Toggle del Dropdown
 
-const CustomToggle1 = React.forwardRef(({ children, onClick }, ref) => (
-    <a
-        href=""
-        ref={ref}
-        onClick={e => {
-            e.preventDefault();
-            onClick(e);
-        }}
-        className="DropFiltro"
-    >
-        {children}
-        &#x25bc;
-    </a>
-));
+// const CustomToggle1 = React.forwardRef(({ children, onClick }, ref) => (
+    // <a
+        // href=""
+        // ref={ref}
+        // onClick={e => {
+            // e.preventDefault();
+            // onClick(e);
+        // }}
+        // className="DropFiltro"
+    // >
+        // {children}
+        // &#x25bc;
+    // </a>
+// ));
 
 
-class Principal extends React.Component {
-    generarPlan() {
-        ReactDOM.render(<PlanAlimenticio />, document.getElementById('root'));
-    }
-
+class Inventario extends React.Component {
     render() {
         return (
             <div className="App">
@@ -52,14 +46,14 @@ class Principal extends React.Component {
                         <div className="CuadroFiltros">
                             <div className="SuperiorFiltros">
                                 <label className="Subtitulo">Filtros</label>
-                                <button className="ButonGenerar" onClick={this.generarPlan}> Generar Plan </button>
+                                <button className="ButonGenerar"> Generar Plan </button>
                             </div>
                             <div className="InteriorCuadroFiltros">
                                 <link
                                     rel="stylesheet"
                                     href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
                                     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-                                    crossOrigin="anonymous"
+                                    crossorigin="anonymous"
                                 />
                                 <Dropdown>
                                     <Dropdown.Toggle as={CustomToggle1}>Organizar</Dropdown.Toggle>
@@ -144,4 +138,4 @@ class Principal extends React.Component {
 
 
 }
-export default Principal;
+export default Inventario;

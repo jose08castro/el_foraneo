@@ -1,24 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import logo from './logo.svg';
-import logoBN from './images/logoBN.png';
-import logoEF from './images/logo.png';
-import logoExplorar from './images/explore.png';
-import logoNotificaciones from './images/favorite.png';
-import logoUsuario from './images/person.png';
-import logoNuevaReceta from './images/nuevaReceta.png';
 
 import Dropdown from 'react-bootstrap/Dropdown'
 
 import Publicacion from './publicacion.js';
 import Barra from './barra.js';
-import PlanAlimenticio from './planAlimenticio.js';
-
 
 import './principal.css';
-
-
-import ReactSearchBox from 'react-search-box';
 // Esta funcion se supone que le da el estilo al Toggle del Dropdown
 
 const CustomToggle1 = React.forwardRef(({ children, onClick }, ref) => (
@@ -37,22 +24,23 @@ const CustomToggle1 = React.forwardRef(({ children, onClick }, ref) => (
 ));
 
 
-class Principal extends React.Component {
-    generarPlan() {
-        ReactDOM.render(<PlanAlimenticio />, document.getElementById('root'));
-    }
-
+class Perfil extends React.Component {
+    userName = "José Evelio Castro Quesada";
+    userNickName = "jose08castro";
     render() {
         return (
             <div className="App">
                 <Barra />
                 <div className="App-contenido">
                     <div className="Muro">
-
+                        <div className="Nombreperfil">
+                            <div className="Parriba"><p className="PdistanciaMargin">{this.userName}</p></div>
+                            <div className="PdistanciaMargin"><p>{this.userNickName}</p></div>
+                        </div>
                         <div className="CuadroFiltros">
                             <div className="SuperiorFiltros">
                                 <label className="Subtitulo">Filtros</label>
-                                <button className="ButonGenerar" onClick={this.generarPlan}> Generar Plan </button>
+                                <button className="ButonGenerar"> Generar Plan </button>
                             </div>
                             <div className="InteriorCuadroFiltros">
                                 <link
@@ -88,52 +76,6 @@ class Principal extends React.Component {
                             </div>
                         </div>
                         <Publicacion />
-                        <Publicacion />
-                        <Publicacion />
-
-                    </div>
-                    <div className="Favoritos">
-
-                        <div className="HeaderFavoritos">
-                            Mis Recetas Favoritas
-                        </div>
-                        <div className="RecetasFavoritas">
-                            <ul>
-                                <li>
-                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                </li>
-                                <li>
-                                    Receta2
-                                </li>
-                                <li>
-                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                </li>
-                                <li>
-                                    Receta2
-                                </li>                            <li>
-                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                </li>
-                                <li>
-                                    Receta2
-                                </li>                            <li>
-                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                </li>
-                                <li>
-                                    Receta2
-                                </li>                            <li>
-                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                </li>
-                                <li>
-                                    Receta2
-                                </li>                            <li>
-                                    Receta1aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                                </li>
-                                <li>
-                                    Receta2
-                                </li>
-
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div >
@@ -144,4 +86,4 @@ class Principal extends React.Component {
 
 
 }
-export default Principal;
+export default Perfil;

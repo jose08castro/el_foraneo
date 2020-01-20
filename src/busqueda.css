@@ -1,0 +1,18 @@
+.Bcentrado {
+    text-align: center;
+}
+
+.Bresultado {
+    width: 100%;
+}
+
+.Bresultado img {
+    width: 100%;
+    max-width: 182px;
+    height: auto;
+    border-radius: 20px;
+}
+
+.Bdistancia {
+    margin-top: 25px;
+}
