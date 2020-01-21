@@ -58,7 +58,6 @@ class Barra extends React.Component {
 
     ingBusqueda = (event) => {
         event.preventDefault();
-        console.log(event.target[0].value)
         ReactDOM.render(<Busqueda key={event.target[0].value} search={event.target[0].value}/>, document.getElementById('root'));
     }
 

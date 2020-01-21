@@ -1,5 +1,4 @@
 import React from 'react';
-import Dropdown from 'react-bootstrap/Dropdown'
 
 import Barra from './barra.js';
 import Categoria from './categoria.js';

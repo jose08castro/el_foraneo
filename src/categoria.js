@@ -38,6 +38,7 @@ class Categoria extends React.Component {
         for (let i = 0; i < this.props.recetas.length; i++) {
             id = this.props.recetas[i];
             if (!counted.includes(id.id)) {
+                // eslint-disable-next-line no-loop-func
                 var count = this.props.recetas.reduce(function (n, val) {
                     return n + (val.id === id.id);
                 }, 0);
@@ -51,12 +52,10 @@ class Categoria extends React.Component {
         Object.keys(ingredientsCount).forEach(function(key,index) {
             ingredientArray.push({nombre: key, cantidad:ingredientsCount[key]});
         });
-        console.log(ingredientArray);
         this.setState({
             resumen: thingsArray,
             ingredientes: ingredientArray
         });
-        console.log(this.state.resumen);
     }
     getPrecio = () => {
         let precio = 0;

@@ -1,5 +1,4 @@
 import React from 'react';
-import chifrijo from './images/chifrijo.png';
 import InfoReceta from './infoReceta.js';
 import ReactDOM from 'react-dom';
 

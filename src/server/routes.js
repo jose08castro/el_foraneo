@@ -84,7 +84,6 @@ router.get('/favoritas/:id_usuario', async (req, res) => {
     try{
         let recetas = {}
         if(req.params.id_usuario){
-            console.log(req.params.id_usuario);
             recetas = await DB.default.recetas.favoritas(req.params.id_usuario); //Recetas favoritas
             res.json(recetas);
         }
