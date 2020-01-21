@@ -63,11 +63,27 @@ router.get('/recetas', async (req , res)=> {
     }
 });
 
+router.get('/plan', async (req , res)=> {
+    try{
+        let min= req.query.min,max=req.query.max,id_categoria=req.query.id_categoria,cantidad=req.query.cantidad;
+        let recetas =  await DB.default.recetas.plan(min,max,id_categoria,cantidad);
+        if(recetas.recetas.length > 0){
+            res.json({recetas:recetas, result:true});
+        }
+        else{
+            res.json({result:false});
+        }
+    }
+    catch(e){
+        console.log(e);
+        res.json({result:false});
+    }
+});
+
 router.get('/favoritas/:id_usuario', async (req, res) => {
     try{
         let recetas = {}
         if(req.params.id_usuario){
-            console.log(req.params.id_usuario);
             recetas = await DB.default.recetas.favoritas(req.params.id_usuario); //Recetas favoritas
             res.json(recetas);
         }
@@ -84,7 +100,6 @@ router.get('/favoritas/:id_usuario', async (req, res) => {
 router.get('/categorias', async (req, res) =>{
     try{
         let categorias = await DB.default.recetas.categorias(); //Categorias
-        console.log(categorias);
         res.json(categorias);
     }
     catch(e){
@@ -93,9 +108,9 @@ router.get('/categorias', async (req, res) =>{
     }
 });
 
-router.get('/notificaciones/:id',async (req, res) => {
+router.get('/like',async (req, res) => {
     try{
-        let dbResult = await DB.default.notificaciones.all(req.params.id);
+        let dbResult = await DB.default.recetas.like(req.query.id_receta,req.query.id_usuario);
         res.send(dbResult);
     }
     catch(e){
@@ -104,21 +119,21 @@ router.get('/notificaciones/:id',async (req, res) => {
     }
 });
 
-router.post('/notificaciones', urlencodedParser, async (req , res)=> {
+router.get('/rate',async (req, res) => {
     try{
-        if(req.body.read){
-            //Read notifications if body includes it
-            try{
-                let dbResult = await DB.default.notificaciones.all(req.body.id_usuario);
-                res.send(dbResult);
-            }
-            catch(e){
-                console.log(e);
-                res.sendStatus(500);
-            }
-        }
-        let dbResult = await DB.default.notificaciones.insert(req.body.id_usuario, req.body.mensaje);
-        res.send(req.body.usuario);
+        let dbResult = await DB.default.recetas.rate(req.query.id_receta,req.query.id_usuario, req.query.rating);
+        res.send(dbResult);
+    }
+    catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+});
+
+router.get('/notificaciones', async (req , res)=> {
+    try{
+        let dbResult = await DB.default.notificaciones.all(req.query.id_usuario);
+        res.json({notificaciones:dbResult, result:true});
     }
     catch(e){
         console.log(e);

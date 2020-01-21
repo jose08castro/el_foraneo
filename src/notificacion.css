@@ -1,0 +1,33 @@
+.NotificacionContenedor {
+    background-color: #1E332B;
+    border-radius: 5px;
+    border: 1px solid #ffffff;
+    border-color: #ffffff;
+    width: 380px;
+}
+
+.Notificacion {
+    border-bottom: 1px solid;
+    border-bottom-color: #ffffff;
+    /* height: 40px; */
+}
+
+
+/* 
+.NotificacionFoto {
+    background-color: #ffffff;
+} */
+
+.NotificacionContenido {
+    text-align: left;
+}
+
+.beeperNubIcon {
+    padding-left: 227px;
+    margin-bottom: -15px;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}

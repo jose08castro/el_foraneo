@@ -358,3 +358,76 @@ begin
 end$$
  
 DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER tr_send_like
+AFTER INSERT
+   ON recetas_favoritas FOR EACH ROW
+
+BEGIN
+   DECLARE vSender varchar(128);
+   DECLARE vReceta varchar(128);
+   DECLARE vReceptor integer;
+    SET vSender := (SELECT u.nombre 
+     FROM usuarios u
+     WHERE u.id = new.id_usuario);
+    
+ 	SET vReceta := (SELECT r.nombre 
+     FROM recetas r
+     WHERE r.id = NEW.id_receta);
+    
+    SET vReceptor := (SELECT r.id_usuario 
+     FROM recetas r
+     WHERE r.id = NEW.id_receta);
+
+   -- Insert record into audit table
+   INSERT INTO notificaciones
+   ( id_usuario,
+     leida,
+     mensaje)
+   VALUES
+   ( vReceptor,
+   	 0,
+     CONCAT(vSender, " agregó ", vReceta, " a sus recetas favoritas!"));
+
+END; //
+
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE TRIGGER tr_send_rating
+AFTER INSERT
+   ON rating_receta FOR EACH ROW
+
+BEGIN
+   DECLARE vSender varchar(128);
+   DECLARE vReceta varchar(128);
+   DECLARE vReceptor integer;
+    SET vSender := (SELECT u.nombre 
+     FROM usuarios u
+     WHERE u.id = new.id_usuario);
+    
+ 	SET vReceta := (SELECT r.nombre 
+     FROM recetas r
+     WHERE r.id = NEW.id_receta);
+    
+    SET vReceptor := (SELECT r.id_usuario 
+     FROM recetas r
+     WHERE r.id = NEW.id_receta);
+
+   -- Insert record into audit table
+   INSERT INTO notificaciones
+   ( id_usuario,
+     leida,
+     mensaje)
+   VALUES
+   ( vReceptor,
+   	 0,
+     CONCAT(vSender, " le dió ", NEW.rating, " maruchanes a tu receta ", vReceta, "!"));
+
+END; //
+
+DELIMITER ;

@@ -1,6 +1,7 @@
 
 import React from 'react';
 import logoEF from './images/logo.png';
+
 import './App.css';
 import Principal from './principal.js';
 import ReactDOM from 'react-dom';
@@ -33,15 +34,12 @@ class App extends React.Component {
       method: 'POST',
       body: data
     }).then(res => {
-      console.log(res);
       return res.json()
     })
       .then(resp => {
-        console.log(resp);
         if (resp.result) {
           const cookie = new Cookies();
           cookie.set('USER', { logged: true, id: resp.id }, { path: '/' });
-          console.log(cookie.get('USER'));
           ReactDOM.render(<Principal />, document.getElementById('root'));
         }
         else{
@@ -70,14 +68,12 @@ class App extends React.Component {
       method: 'POST',
       body: data,
     }).then(res => {
-      console.log(res);
       return res.json()
     })
       .then(resp => {
         if (resp.result) {
           const cookie = new Cookies();
           cookie.set('USER', { logged: true, id: resp.id }, { path: '/' });
-          console.log(cookie.get('USER'));
           ReactDOM.render(<Principal />, document.getElementById('root'));
         }
         else{
