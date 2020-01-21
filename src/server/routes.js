@@ -63,6 +63,17 @@ router.get('/recetas', async (req , res)=> {
     }
 });
 
+router.get('/todas/:id_usuario', async (req , res)=> {
+    try{
+        let recetas =  await DB.default.recetas.allUser(req.params.id_usuario);
+        res.json(recetas);
+    }
+    catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+});
+
 router.get('/plan', async (req , res)=> {
     try{
         let min= req.query.min,max=req.query.max,id_categoria=req.query.id_categoria,cantidad=req.query.cantidad;
@@ -97,6 +108,23 @@ router.get('/favoritas/:id_usuario', async (req, res) => {
     }
 });
 
+router.get('/usuario/:id_usuario', async (req, res) => {
+    try{
+        let userInfo = {}
+        if(req.params.id_usuario){
+            userInfo = await DB.default.usuarios.find(req.params.id_usuario); //Recetas favoritas
+            res.json(userInfo);
+        }
+        else{
+            res.sendStatus(500);
+        }
+    }
+    catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+});
+
 router.get('/categorias', async (req, res) =>{
     try{
         let categorias = await DB.default.recetas.categorias(); //Categorias
@@ -111,6 +139,17 @@ router.get('/categorias', async (req, res) =>{
 router.get('/like',async (req, res) => {
     try{
         let dbResult = await DB.default.recetas.like(req.query.id_receta,req.query.id_usuario);
+        res.send(dbResult);
+    }
+    catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+});
+
+router.get('/share',async (req, res) => {
+    try{
+        let dbResult = await DB.default.recetas.share(req.query.id_receta,req.query.id_usuario);
         res.send(dbResult);
     }
     catch(e){

@@ -1,12 +1,23 @@
 let connection =  require('./index');
 
 const SELECTUSERS = 'SELECT usuario, nombre, apellidos from usuarios';
+const SELECTUSER = 'SELECT usuario, nombre, apellidos from usuarios where id = ?';
 
 const all = async () =>{ //Returns all usernames
     return new Promise((resolve,reject)=>{
 
         connection.connection.query(SELECTUSERS, (err, results) =>{
             return (err) ?  reject(err) : resolve({usuarios: results});
+        });
+
+    });
+}
+
+const find = async (id) =>{ //Returns all usernames
+    return new Promise((resolve,reject)=>{
+
+        connection.connection.query(SELECTUSER,[id], (err, results) =>{
+            return (err) ?  reject(err) : resolve({userInfo: results});
         });
 
     });
@@ -48,9 +59,10 @@ const register = async (nombre, apellidos, correo, usuario, password) =>{
 module.exports.all = all;
 module.exports.login = login;
 module.exports.register = register;
-
+module.exports.find = find;
 module.exports.default = {
     all,
     login,
-    register
+    register,
+    find
 }

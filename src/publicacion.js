@@ -55,6 +55,30 @@ class Publicacion extends React.Component {
             });
         this.props.update()
     }
+    sharePublicacion = async () =>{
+        const cookie = new Cookies();
+        let user = cookie.get('USER').id;
+        await fetch(`/share?id_receta=${this.props.idReceta}&id_usuario=${user}`)
+         .then(res => {
+            return res.json()
+          })
+            .then(resp => {
+
+              if (resp.deleted) {
+                this.setState({errorMessage: "Receta eliminada de compartidas!"});
+                setTimeout(function(){
+                    this.setState({errorMessage: ""});
+                }.bind(this),2000);
+              }
+              else{
+                this.setState({errorMessage: "Receta añadida a compartidas! Ahora es visible en tu perfil!"});
+                setTimeout(function(){
+                    this.setState({errorMessage: ""});
+                }.bind(this),2000);
+              }
+            });
+        this.props.update()
+    }
     ratingPublicacion = async (rating) =>{
         const cookie = new Cookies();
         let user = cookie.get('USER').id;
@@ -113,7 +137,7 @@ class Publicacion extends React.Component {
                     </div>
                     <div className="barraIconosReceta">
                         <img src={logoNotificaciones} onClick={this.likePublicacion} className="iconos" alt="Notificaciones" />
-                        <img src={logoCompartir} className="iconos" alt="Nueva Receta" />
+                        <img src={logoCompartir}onClick={this.sharePublicacion} className="iconos" alt="Nueva Receta" />
                     </div>
                 </div>
                 <div className="CuerpoReceta">

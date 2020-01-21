@@ -1,6 +1,6 @@
 let connection = require('./index');
 
-const SELECT = 'SELECT r.id, r.nombre as nombre, r.pasos, r.tiempo, r.imagen, c.nombre as categoria, u.usuario FROM recetas r join usuarios u on r.id_usuario = u.id join categorias c on r.id_categoria = c.id';
+const SELECT = 'SELECT r.id, r.nombre as nombre, r.pasos, r.tiempo, r.imagen, c.nombre as categoria, u.usuario FROM recetas r join usuarios u on r.id_usuario = u.id join categorias c on r.id_categoria = c.id ORDER BY r.id DESC';
 const GETINGREDIENTS = 'SELECT i.nombre, i.precio, ir.cantidad FROM ingredientesxreceta ir JOIN ingredientes i on ir.id_ingrediente = i.id WHERE ir.id_receta = ?'
 const GETRATING = 'SELECT AVG(rr.rating) as rating ,r.id FROM recetas r JOIN rating_receta rr on rr.id_receta = r.id WHERE r.id = ? GROUP BY r.id'
 const SEARCH = "SELECT r.id, r.nombre as nombre, r.pasos, r.tiempo, r.imagen, c.nombre as categoria, u.usuario FROM recetas r join usuarios u on r.id_usuario = u.id join categorias c on r.id_categoria = c.id WHERE r.nombre LIKE ? or r.pasos LIKE ?"
@@ -10,9 +10,11 @@ const GETFAVORITAS = "SELECT r.id, r.nombre FROM recetas_favoritas rf join recet
 const PLAN = 'CALL sp_get_plan_recetas(?,?,?,?)'
 const LIKE = 'INSERT INTO recetas_favoritas(id_receta,id_usuario) values(?,?)'
 const UNLIKE = 'DELETE from recetas_favoritas where id_receta=? AND id_usuario=?'
+const SHARE = 'INSERT INTO recetas_compartidas(id_receta,id_usuario) values(?,?)'
+const UNSHARE = 'DELETE from recetas_compartidas where id_receta=? AND id_usuario=?'
 const RATE = 'INSERT INTO rating_receta(id_receta,id_usuario,rating) values(?,?,?)'
 const UPDATERATE = 'UPDATE rating_receta SET rating=? WHERE id_receta=? AND id_usuario=?'
-
+const ALLUSER = '(SELECT r.id, r.nombre as nombre, r.pasos, r.tiempo, r.imagen, c.nombre as categoria, u.usuario FROM recetas r join usuarios u on r.id_usuario = u.id join categorias c on r.id_categoria = c.id WHERE r.id_usuario = ? ) UNION (SELECT r.id, r.nombre as nombre, r.pasos, r.tiempo, r.imagen, c.nombre as categoria, u.usuario FROM recetas r join recetas_favoritas rf on rf.id_receta = r.id  join usuarios u on r.id_usuario = u.id join categorias c on r.id_categoria = c.id WHERE rf.id_usuario = ? ) UNION (SELECT r.id, r.nombre as nombre, r.pasos, r.tiempo, r.imagen, c.nombre as categoria, u.usuario FROM recetas r join recetas_compartidas rc on rc.id_receta = r.id  join usuarios u on r.id_usuario = u.id join categorias c on r.id_categoria = c.id WHERE rc.id_usuario = ? )'
 function getRating(id) {
     return new Promise((resolve, reject) => {
         let params = [id];
@@ -79,6 +81,26 @@ const all = () => { //Retorna todas las recetas
 
     });
 }
+
+const allUser = (id) => { //Retorna todas las recetas
+    return new Promise((resolve, reject) => {
+        connection.connection.query(ALLUSER,[id,id,id], async (err, results) => {
+            if (err)
+                return reject(err);
+            else {
+                let newResults = [];
+                for (let i = 0; i < results.length; i++) {
+                    let receta = results[i];
+                    receta = await armarReceta(receta);
+                    newResults.push(receta);
+                }
+                resolve({ recetas: newResults });
+            }
+        });
+
+    });
+}
+
 const search = (name) => {
     return new Promise((resolve, reject) => {
         name = "%" + name + "%"
@@ -197,6 +219,31 @@ const like = async (id_receta, id_usuario) => {
     });
 }
 
+const share = async (id_receta, id_usuario) => {
+    return new Promise((resolve, reject) => {
+        connection.connection.query(UNSHARE, [id_receta, id_usuario], async (err, results) => {
+            if (err)
+                return reject(err);
+            else {
+                if (results.affectedRows === 0) {
+                    connection.connection.query(SHARE, [id_receta, id_usuario], async (err, results) => {
+                        if (err)
+                            return reject(err);
+                        else {
+                            return (results.affectedRows > 0) ? (resolve({result : true})) : (resolve({result : false}))
+                        }
+                    });
+                }
+                else{
+                    return (resolve({deleted:true}));
+                }
+            }
+        });
+
+    });
+}
+
+
 const rate = async (id_receta, id_usuario, rating) => {
     return new Promise((resolve, reject) => {
         connection.connection.query(UPDATERATE, [rating,id_receta, id_usuario], async (err, results) => {
@@ -229,6 +276,9 @@ module.exports.categorias = categorias;
 module.exports.plan = plan;
 module.exports.like = like;
 module.exports.rate = rate;
+module.exports.share = share;
+module.exports.allUser = allUser;
+
 
 module.exports.default = {
     all,
@@ -238,5 +288,7 @@ module.exports.default = {
     categorias,
     plan,
     like,
-    rate
+    rate,
+    allUser,
+    share
 }

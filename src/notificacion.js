@@ -18,7 +18,9 @@ class Notificacion extends React.Component {
             <div>
                 <div><img src={beeperNub} className="beeperNubIcon" alt="beeperNub" /></div>
                 <div className="NotificacionContenedor">
-                    {this.props.notificaciones.map(this.renderNotificacion)}
+                    {
+                    this.props.notificaciones.length>0 ? this.props.notificaciones.map(this.renderNotificacion) : <div className="col-sm-10 col-md-10 col-lg-10 col-xl-10 NotificacionContenido">Todavía no tiene notificaciones!</div>
+                        }
                 </div>
             </div>
         );
