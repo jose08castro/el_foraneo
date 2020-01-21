@@ -5,17 +5,21 @@ import logoEF from './images/logo.png';
 import logoNotificaciones from './images/favorite.png';
 import logoUsuario from './images/person.png';
 import logoCompartir from './images/compartir.png';
+import Cookies from 'universal-cookie';
 
 import InfoReceta from './infoReceta.js';
 
 class Publicacion extends React.Component {
     constructor(props){
-        super();
+        super(props);
+        this.state = {
+            errorMessage: ""
+        };
     }
     cargarInformacion = () =>{
         let info = <InfoReceta     
         key = {this.props.key}
-        idReceta={this.props.id} 
+        idReceta={this.props.idReceta} 
         nombre={this.props.nombre} 
         pasos={this.props.pasos} 
         tiempo={this.props.tiempo} 
@@ -27,6 +31,54 @@ class Publicacion extends React.Component {
          precio={this.props.precio}/>
         ReactDOM.render(info, document.getElementById('root'));
     }
+    likePublicacion = async () =>{
+        const cookie = new Cookies();
+        let user = cookie.get('USER').id;
+        await fetch(`/like?id_receta=${this.props.idReceta}&id_usuario=${user}`)
+         .then(res => {
+            return res.json()
+          })
+            .then(resp => {
+
+              if (resp.deleted) {
+                this.setState({errorMessage: "Receta eliminada de favoritas!"});
+                setTimeout(function(){
+                    this.setState({errorMessage: ""});
+                }.bind(this),2000);
+              }
+              else{
+                this.setState({errorMessage: "Receta añadida a favoritas!"});
+                setTimeout(function(){
+                    this.setState({errorMessage: ""});
+                }.bind(this),2000);
+              }
+            });
+        this.props.update()
+    }
+    ratingPublicacion = async (rating) =>{
+        const cookie = new Cookies();
+        let user = cookie.get('USER').id;
+        await fetch(`/rate?id_receta=${this.props.idReceta}&id_usuario=${user}&rating=${rating}`)
+         .then(res => {
+            return res.json()
+          })
+            .then(resp => {
+
+              if (resp.deleted) {
+                this.setState({errorMessage: "Calificación actualizada!"});
+                setTimeout(function(){
+                    this.setState({errorMessage: ""});
+                }.bind(this),2000);
+              }
+              else{
+                this.setState({errorMessage: "Calificación añadida!"});
+                setTimeout(function(){
+                    this.setState({errorMessage: ""});
+                }.bind(this),2000);
+              }
+            });
+        this.props.update()
+    }
     renderIngrediente = ({nombre, precio, cantidad},i) => <li key={i}>{nombre} x {cantidad}</li>
     renderRating = () => {
         let rating = []
@@ -34,11 +86,11 @@ class Publicacion extends React.Component {
         let ratingNumber = Math.ceil(this.props.rating);
         // Create filled maruchan
         for(let i = 0; i < ratingNumber ; i++) {
-            rating.push(<img key={i} src={logoEF} className="iconos" alt="El Foráneo" />);
+            rating.push(<img onClick={() => this.ratingPublicacion(i+1)} key={i} src={logoEF} className="iconos" alt="El Foráneo" />);
         }
         // Create unfilled maruchan
         for(let i = ratingNumber ; i < 5; i++) {
-            rating.push(<img key={i}src={logoBN} className="iconos" alt="El Foráneo" />);
+            rating.push(<img onClick={() => this.ratingPublicacion(i+1)} key={i} src={logoBN} className="iconos" alt="El Foráneo" />);
         }
         return rating
     }
@@ -48,6 +100,9 @@ class Publicacion extends React.Component {
     render() {
         return (
             <div className="CuadroRecetas">
+                <h3>
+                    {this.state.errorMessage}
+                </h3>
                 <div className="HeadReceta">
                     <div className="Info">
                         <img src={logoUsuario} className="iconos" alt="Notificaciones" />
@@ -57,7 +112,7 @@ class Publicacion extends React.Component {
                         </div>
                     </div>
                     <div className="barraIconosReceta">
-                        <img src={logoNotificaciones} className="iconos" alt="Notificaciones" />
+                        <img src={logoNotificaciones} onClick={this.likePublicacion} className="iconos" alt="Notificaciones" />
                         <img src={logoCompartir} className="iconos" alt="Nueva Receta" />
                     </div>
                 </div>
@@ -88,7 +143,5 @@ class Publicacion extends React.Component {
             </div>
         );
     }
-
-
 }
 export default Publicacion;

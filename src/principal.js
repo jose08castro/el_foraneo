@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import Publicacion from './publicacion.js';
 import Barra from './barra.js';
 import PlanAlimenticio from './planAlimenticio.js';
+import InfoReceta from './infoReceta.js';
 
 
 import './principal.css';
@@ -21,33 +22,61 @@ class Principal extends React.Component {
             recetas: [],
             favoritas: [],
             categorias: [],
-            notificaciones: [],
-            categoria: 0,
-            precios: 0,
-            organizar: 0
+            categoria: "0",
+            precios: "0",
+            tiempo: "0",
+            errorMessage: ""
         };
     }
-    async componentDidMount() {
+    updateValues = async() =>{
         let resp = await fetch('/recetas');
         let recetas = await resp.json();
+        this.setState({
+            recetas: recetas.recetas
+        });
         const cookie = new Cookies();
         let user = cookie.get('USER').id;
-        resp = await fetch('/categorias');
+         resp = await fetch('/categorias');
         let categorias = await resp.json();
         resp = await fetch(`/favoritas/${encodeURIComponent(user)}`);
         let favoritas = await resp.json();
-        resp = await fetch(`/notificaciones/${encodeURIComponent(user)}`);
-        let notificaciones = await resp.json();
+        
         this.setState({
             userId: user,
-            recetas: recetas.recetas,
             favoritas: favoritas.recetas,
             categorias: categorias.categorias,
-            notificaciones: notificaciones.notificaciones
         });
     }
-    renderCategoria = ({ id, nombre }) => <option key={id} value={id}>{nombre}</option>
-    renderFavorita = ({ id, nombre }, i) => <li key={id}>{nombre}</li>
+    async componentDidMount() {
+        this.updateValues();
+    }
+    desplegarFavorito= (id) =>{
+        let i = 0;
+        while(i < this.state.recetas.length){
+            if(this.state.recetas[i].id === id){
+                ReactDOM.render(this.renderDetalles(this.state.recetas[i]), document.getElementById('root'));
+                break;
+            }
+            i++;
+        }
+    }
+    renderCategoria = ({ id, nombre }) => <option key={id} value={nombre}>{nombre}</option>
+    renderFiltro= ({ id, nombre }) => <option key={id} value={id}>{nombre}</option>
+
+    renderFavorita = ({ id, nombre }, i) => <li onClick={() => this.desplegarFavorito(id)} key={id}>{nombre}</li>
+    renderDetalles = ({id, nombre, pasos, tiempo, imagen, categoria, usuario, rating, ingredientes, precio}) =>
+        <InfoReceta
+        key = {id}     
+        idReceta={id} 
+        nombre={nombre} 
+        pasos={pasos} 
+        tiempo={tiempo} 
+        imagen={imagen}
+        categoria={categoria} 
+        usuario={usuario}
+         rating={rating} 
+         ingredientes={ingredientes} 
+         precio={precio}/>
     renderReceta = ({ id, nombre, pasos, tiempo, imagen, categoria, usuario, rating, ingredientes, precio }) =>
         <Publicacion
             key={id}
@@ -60,7 +89,8 @@ class Principal extends React.Component {
             usuario={usuario}
             rating={rating}
             ingredientes={ingredientes}
-            precio={precio} />;
+            precio={precio}
+            update={this.updateValues} />;
 
 
     generarPlan = () => {
@@ -68,7 +98,7 @@ class Principal extends React.Component {
     }
 
     render() {
-        const { userId, recetas, favoritas, categorias, notificaciones } = this.state;
+        const { userId, recetas, favoritas, categorias} = this.state;
 
         return (
             <div className="App">
@@ -88,21 +118,30 @@ class Principal extends React.Component {
                                     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
                                     crossOrigin="anonymous"
                                 />
-                                <select className="DropFiltroPlan" value={this.state.organizar} onChange={(e) => { this.setState({ organizar: e.target.value }) }}>
-                                    <option disabled hidden key={0} value={0}>Organizar</option>
-                                    {[{ id: 1, nombre: "Más antiguos" }, { id: 2, nombre: "Más recientes" }, { id: 3, nombre: "Mejor calificadas" }].map(this.renderCategoria)}
+                                <select className="DropFiltroPlan" value={this.state.tiempo} onChange={(e) => { this.setState({ tiempo: e.target.value }) }}>
+                                    <option key={0} value={"0"}>Tiempo</option>
+                                    {[{ id: 1, nombre: "0-30 min" }, { id: 2, nombre: "30-60 min" }, { id: 3, nombre: "60+ min" }].map(this.renderFiltro)}
                                 </select>
                                 <select className="DropFiltroPlan" value={this.state.categoria} onChange={(e) => { this.setState({ categoria: e.target.value }) }}>
-                                    <option disabled hidden key={0} value={0}>Categoría</option>
+                                    <option key={0} value={"0"}>Categoría</option>
                                     {categorias.map(this.renderCategoria)}
                                 </select>
                                 <select className="DropFiltroPlan" value={this.state.precios} onChange={(e) => { this.setState({ precios: e.target.value }) }}>
-                                    <option disabled hidden key={0} value={0}>Rango de Precios</option>
-                                    {[{ id: 1, nombre: "0-1000" }, { id: 2, nombre: "1000-2000" }, { id: 3, nombre: "2000-3000" }, { id: 4, nombre: "3000+" }].map(this.renderCategoria)}
+                                    <option key={0} value={"0"}>Rango de Precios</option>
+                                    {[{ id: 1, nombre: "0-1000" }, { id: 2, nombre: "1000-2000" }, { id: 3, nombre: "2000-3000" }, { id: 4, nombre: "3000+" }].map(this.renderFiltro)}
                                 </select>
                             </div>
                         </div>
-                        {recetas.map(this.renderReceta)}
+                        {recetas.filter(item => ((this.state.categoria === "0" || item.categoria === this.state.categoria) && 
+                        ((this.state.precios === "0") || 
+                        ((this.state.precios === "1" && item.precio <= 1000) || 
+                        (this.state.precios === "2" && (item.precio >= 1000 && item.precio <= 2000)) || 
+                        (this.state.precios === "3" && (item.precio >= 2000 && item.precio < 3000))||
+                        (this.state.precios === "4" && item.precio >= 3000))) &&
+                        ((this.state.tiempo === "0")||
+                        (this.state.tiempo === "1" && item.tiempo <= 30) ||
+                        (this.state.tiempo === "2" && (item.tiempo >= 30 && item.tiempo <= 60))||
+                        (this.state.tiempo === "3" && item.tiempo >= 60)))).map(this.renderReceta)}
 
                     </div>
                     <div className="Favoritos">

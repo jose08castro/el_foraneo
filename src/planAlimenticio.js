@@ -15,10 +15,10 @@ class PlanAlimenticio extends React.Component {
             categoria: 0,
             precios: 0,
             cantidad: 0,
-            errorMessage: ""
+            errorMessage: "",
+            numeroDeResultado: 0
         };
     }
-    renderCategoriaToggle = ({ id, nombre }) => <Dropdown.Item key={id}>{nombre}</Dropdown.Item>
     renderPlan = <Categoria recetas={this.props.recetas} />
     renderCategoria = ({ id, nombre }) => <option key={id} value={id}>{nombre}</option>
     generar = async () => {
@@ -46,6 +46,7 @@ class PlanAlimenticio extends React.Component {
         if(min > -1 && max > -1 && parseInt(cantidad) > 0 &&  id_categoria > 0){
             let resp = await fetch(`/plan?min=${min}&max=${max}&cantidad=${cantidad}&id_categoria=${id_categoria}`);
             let resultados = await resp.json();
+            let i = this.state.numeroDeResultado;
             if(resultados.result && resultados.recetas.recetas.length>0){
                 this.setState({errorMessage: ""});
                 for(let i = 0; i < this.props.categorias.length; i++){
@@ -53,10 +54,10 @@ class PlanAlimenticio extends React.Component {
                         nombrecat = this.props.categorias[i].nombre;
                     }
                 }
-                this.setState({ despliegue: [<Categoria categoria={nombrecat} key={1} recetas={resultados.recetas.recetas} />] })
+                this.setState({ numeroDeResultado: i + 1,despliegue: <Categoria categoria={nombrecat} key={i} recetas={resultados.recetas.recetas} /> })
 
             } else {
-                this.setState({errorMessage: "No se encontraron planes de comida con los parámetros insertados :("});
+                this.setState({despliegue:[],errorMessage: "No se encontraron planes de comida con los parámetros insertados :("});
             }
         
         }
