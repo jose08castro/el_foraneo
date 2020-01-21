@@ -2,7 +2,7 @@ module.exports.default = {
     mysql : {
         host:'localhost',
         user:'root',
-        password:'',
+        password:'elforaneo',
         database:'foraneodb'
     }
 }
