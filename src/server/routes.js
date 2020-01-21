@@ -121,27 +121,27 @@ router.get('/notificaciones/:id',async (req, res) => {
 // router.get('*', (req, res) => {                       
 //     res.sendFile(path.resolve('./scr/App.js'));                               
 //   });
-router.post('/notificaciones', urlencodedParser, async (req , res)=> {
-    try{
-        if(req.body.read){
-            //Read notifications if body includes it
-            try{
-                let dbResult = await DB.default.notificaciones.all(req.body.id_usuario);
-                res.send(dbResult);
+    router.post('/notificaciones', urlencodedParser, async (req , res)=> {
+        try{
+            if(req.body.read){
+                //Read notifications if body includes it
+                try{
+                    let dbResult = await DB.default.notificaciones.all(req.body.id_usuario);
+                    res.send(dbResult);
+                }
+                catch(e){
+                    console.log(e);
+                    res.sendStatus(500);
+                }
             }
-            catch(e){
-                console.log(e);
-                res.sendStatus(500);
-            }
+            let dbResult = await DB.default.notificaciones.insert(req.body.id_usuario, req.body.mensaje);
+            res.send(req.body.usuario);
         }
-        let dbResult = await DB.default.notificaciones.insert(req.body.id_usuario, req.body.mensaje);
-        res.send(req.body.usuario);
-    }
-    catch(e){
-        console.log(e);
-        res.sendStatus(500);
-    }
-});
+        catch(e){
+            console.log(e);
+            res.sendStatus(500);
+        }
+    });
 
 
 module.exports = router;
