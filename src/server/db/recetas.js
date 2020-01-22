@@ -49,6 +49,7 @@ function getIngredients(id) {
                     ingredientes = ingredientes.concat({ nombre: obj.nombre, precio: obj.precio, cantidad: obj.cantidad });
                     precio = precio + obj.precio * obj.cantidad;
                 }
+                
                 resolve({ ingredientes: ingredientes, precio: precio });
             }
 
