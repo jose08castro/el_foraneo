@@ -4,6 +4,9 @@
     border: 1px solid #ffffff;
     border-color: #ffffff;
     width: 380px;
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .Notificacion {

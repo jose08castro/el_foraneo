@@ -1,3 +1,12 @@
+h2{
+    margin-top: 20px;
+    color: #9B0000;
+}
+h3{
+    margin-top: 20px;
+    font-size: 16px;
+    color: #1E332B;
+}
 .FondoPlan {
     background: #faeeae;
     display: flex;
