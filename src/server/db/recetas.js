@@ -15,6 +15,12 @@ const UNSHARE = 'DELETE from recetas_compartidas where id_receta=? AND id_usuari
 const RATE = 'INSERT INTO rating_receta(id_receta,id_usuario,rating) values(?,?,?)'
 const UPDATERATE = 'UPDATE rating_receta SET rating=? WHERE id_receta=? AND id_usuario=?'
 const ALLUSER = '(SELECT r.id, r.nombre as nombre, r.pasos, r.tiempo, r.imagen, c.nombre as categoria, u.usuario FROM recetas r join usuarios u on r.id_usuario = u.id join categorias c on r.id_categoria = c.id WHERE r.id_usuario = ? ) UNION (SELECT r.id, r.nombre as nombre, r.pasos, r.tiempo, r.imagen, c.nombre as categoria, u.usuario FROM recetas r join recetas_favoritas rf on rf.id_receta = r.id  join usuarios u on r.id_usuario = u.id join categorias c on r.id_categoria = c.id WHERE rf.id_usuario = ? ) UNION (SELECT r.id, r.nombre as nombre, r.pasos, r.tiempo, r.imagen, c.nombre as categoria, u.usuario FROM recetas r join recetas_compartidas rc on rc.id_receta = r.id  join usuarios u on r.id_usuario = u.id join categorias c on r.id_categoria = c.id WHERE rc.id_usuario = ? )'
+const ADDRECETA = 'INSERT INTO `recetas`( `nombre`, `pasos`, `tiempo`, `imagen`, `id_categoria`, `id_usuario`) VALUES (?,?,?,?,?,?)'
+const ADDINGREDIENTERECETA = 'INSERT INTO `ingredientesxreceta`(`id_receta`,`id_ingrediente`, `cantidad`) VALUES (?,?,?)'
+const LASTINGREDIENTE = 'select * from ingredientes  order by id desc limit 1'
+const ADDINGREDIENTE = 'INSERT INTO `ingredientes`( `nombre`, `precio`) VALUES (?,?)'
+const LASTRECETA =  'select * from recetas order by id desc limit 1'
+
 function getRating(id) {
     return new Promise((resolve, reject) => {
         let params = [id];
@@ -43,6 +49,7 @@ function getIngredients(id) {
                     ingredientes = ingredientes.concat({ nombre: obj.nombre, precio: obj.precio, cantidad: obj.cantidad });
                     precio = precio + obj.precio * obj.cantidad;
                 }
+                
                 resolve({ ingredientes: ingredientes, precio: precio });
             }
 
@@ -56,9 +63,10 @@ async function armarReceta(receta) {
     recetaNueva.rating = rating;
     recetaNueva.ingredientes = ingredientes.ingredientes;
     recetaNueva.precio = ingredientes.precio;
+    var tempImage = receta.imagen.toString();
     var buffer = Buffer.from(receta.imagen);
     var bufferBase64 = buffer.toString('base64');
-    recetaNueva.imagen = "data:image/jpg;base64," + bufferBase64;//
+    recetaNueva.imagen = tempImage.startsWith("data:image/") ? tempImage :"data:image/jpg;base64," + bufferBase64;//     
     return recetaNueva;
 
 }
@@ -104,7 +112,7 @@ const allUser = (id) => { //Retorna todas las recetas
 const search = (name) => {
     return new Promise((resolve, reject) => {
         name = "%" + name + "%"
-        connection.connection.query(SEARCH, [name,name], async (err, results) => {
+        connection.connection.query(SEARCH, [name, name], async (err, results) => {
             if (err)
                 return reject(err);
             else {
@@ -158,6 +166,53 @@ const favoritas = async (idUsuario) => {
     });
 }
 
+const addReceta = async (nombre, pasos, tiempo, imagen, categoria, usuario) => {
+    return new Promise((resolve, reject) => {
+        let params = [nombre, pasos, tiempo, imagen, categoria, usuario];
+        connection.connection.query(ADDRECETA, params, (err, results) => {
+            return (err) ? reject(err) : resolve({ result: results });
+        });
+    });
+}
+
+const addIngredientesReceta = async (receta, ingrediente, cantidad, ) => {
+    return new Promise((resolve, reject) => {
+        let params = [receta, ingrediente, cantidad];
+        connection.connection.query(ADDINGREDIENTERECETA, params, (err, results) => {
+            return (err) ? reject(err) : resolve({ result: results });
+        });
+    });
+}
+
+const LastIngrediente = async () => {
+    return new Promise((resolve, reject) => {
+        connection.connection.query(LASTINGREDIENTE, (err, results) => {
+            return (err) ? reject(err) : resolve({ result: results });
+        });
+    }); 
+
+}
+
+const LastReceta = async () => {
+    return new Promise((resolve, reject) => {
+        connection.connection.query(LASTRECETA, (err, results) => {
+            return (err) ? reject(err) : resolve({ result: results });
+        });
+    });
+
+}
+const ADDIngrediente = async (Nombre, precio) => {
+    return new Promise((resolve, reject) => {
+        let params = [Nombre, precio];
+        connection.connection.query(ADDINGREDIENTE, params, (err, results) => {
+
+            return (err) ? reject(err) : resolve({ result: results });
+        });
+
+    });
+
+}
+
 const categorias = async () => {
     return new Promise((resolve, reject) => {
         connection.connection.query(GETCATEGORY, async (err, results) => {
@@ -166,9 +221,7 @@ const categorias = async () => {
             else {
                 resolve({ categorias: results });
             }
-
         });
-
     });
 }
 
@@ -195,6 +248,8 @@ const plan = async (min, max, id_categoria, cantidad) => {
     });
 }
 
+
+
 const like = async (id_receta, id_usuario) => {
     return new Promise((resolve, reject) => {
         connection.connection.query(UNLIKE, [id_receta, id_usuario], async (err, results) => {
@@ -206,12 +261,12 @@ const like = async (id_receta, id_usuario) => {
                         if (err)
                             return reject(err);
                         else {
-                            return (results.affectedRows > 0) ? (resolve({result : true})) : (resolve({result : false}))
+                            return (results.affectedRows > 0) ? (resolve({ result: true })) : (resolve({ result: false }))
                         }
                     });
                 }
-                else{
-                    return (resolve({deleted:true}));
+                else {
+                    return (resolve({ deleted: true }));
                 }
             }
         });
@@ -246,7 +301,7 @@ const share = async (id_receta, id_usuario) => {
 
 const rate = async (id_receta, id_usuario, rating) => {
     return new Promise((resolve, reject) => {
-        connection.connection.query(UPDATERATE, [rating,id_receta, id_usuario], async (err, results) => {
+        connection.connection.query(UPDATERATE, [rating, id_receta, id_usuario], async (err, results) => {
             if (err)
                 return reject(err);
             else {
@@ -255,12 +310,12 @@ const rate = async (id_receta, id_usuario, rating) => {
                         if (err)
                             return reject(err);
                         else {
-                            return (results.affectedRows > 0) ? (resolve({result : true})) : (resolve({result : false}))
+                            return (results.affectedRows > 0) ? (resolve({ result: true })) : (resolve({ result: false }))
                         }
                     });
                 }
-                else{
-                    return (resolve({deleted:true}));
+                else {
+                    return (resolve({ deleted: true }));
                 }
             }
         });
@@ -278,6 +333,11 @@ module.exports.like = like;
 module.exports.rate = rate;
 module.exports.share = share;
 module.exports.allUser = allUser;
+module.exports.addReceta = addReceta;
+module.exports.ADDIngrediente = ADDIngrediente;
+module.exports.addIngredientesReceta = addIngredientesReceta;
+module.exports.LastReceta = LastReceta;
+module.exports.LastIngrediente = LastIngrediente;
 
 
 module.exports.default = {
@@ -290,5 +350,11 @@ module.exports.default = {
     like,
     rate,
     allUser,
-    share
+    share,
+    LastReceta,
+    LastIngrediente,
+    ADDIngrediente,
+    addIngredientesReceta,
+    addReceta,
+    rate
 }

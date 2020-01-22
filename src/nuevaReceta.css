@@ -49,8 +49,15 @@
     float: right;
     text-align: left;
     width: 50%;
+    border-radius: 30px;
 }
-
+.NRderB {
+    float: right;
+    text-align: left;
+    width: 50%;
+    border-radius: 30px;
+    background-color: none;
+}
 .NRfull {
     float: right;
     text-align: left;
@@ -62,6 +69,8 @@
     background-color: #314E46;
     width: 100%;
     color: white;
+    border-radius: 25px;
+
 }
 
 .NRlista {

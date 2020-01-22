@@ -105,7 +105,6 @@ class Principal extends React.Component {
                 <Barra />
                 <div className="App-contenido">
                     <div className="Muro">
-
                         <div className="CuadroFiltros">
                             <div className="SuperiorFiltros">
                                 <label className="Subtitulo">Filtros</label>

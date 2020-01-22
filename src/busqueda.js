@@ -72,7 +72,7 @@ class Busqueda extends React.Component {
                 recetas.push(<div className="row Bdistancia"> {currentRecetas} </div>)
                 currentRecetas = [];
             }
-            currentRecetas.push(<div className="col-sm-12 col-md-6 col-lg-3 col-xl-3"><div className="Bresultado"><img alt="receta" src={receta.imagen} onClick={() => this.renderDetalles(receta)} /></div></div>)
+            currentRecetas.push(<div className="col-sm-12 col-md-6 col-lg-3 col-xl-3 "><div className="Bresultado"><img alt="receta" src={receta.imagen} onClick={() => this.renderDetalles(receta)} /></div></div>)
         }
         if (currentRecetas.length >= 1) {
             recetas.push(<div className="row Bdistancia"> {currentRecetas} </div>)
