@@ -4,13 +4,18 @@
 
 .Bresultado {
     width: 100%;
+    object-fit: contain;
+
 }
 
 .Bresultado img {
     width: 100%;
     max-width: 182px;
-    height: auto;
+    height: 182px;
     border-radius: 20px;
+    object-fit: contain;
+    
+
 }
 
 .Bdistancia {

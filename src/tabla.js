@@ -11,13 +11,13 @@ class Tabla extends React.Component {
         this.state.ingredientes = [
             {
                 id: 1,
-                nombre: 'Zanahoria',
+                nombre: 'Salsa',
                 precio: 2000,
                 cantidad: 12,
 
             }, {
                 id: 2,
-                nombre: 'Naranjas',
+                nombre: 'Tomate',
                 precio: '2000',
                 cantidad: 15,
 
