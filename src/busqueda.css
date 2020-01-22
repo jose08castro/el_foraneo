@@ -1,0 +1,30 @@
+.Bcentrado {
+    text-align: center;
+}
+
+.Bresultado {
+    width: 100%;
+    max-width: 182px;
+    height: 182px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1E332B;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+
+.Bresultado img {
+
+    object-fit: contain;
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 20px;
+}
+
+.Bdistancia {
+    margin-top: 25px;
+}

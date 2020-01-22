@@ -1,0 +1,29 @@
+.Ttabla {
+    text-align: right;
+}
+
+.TmodTable {
+    background-color: #1E332B;
+    text-align: right;
+}
+
+.TmodTable table {
+    width: 100%;
+
+}
+
+.TmodTable table thead {
+    color: #ffffffff;
+    background-color: #1E332B;
+    text-align: center!important;
+}
+
+.TbotonMas {
+    margin-right: 3px;
+    margin-bottom: 3px;
+}
+
+.Tinput {
+    width: 110px;
+    max-width: 110px;
+}

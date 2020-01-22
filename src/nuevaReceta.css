@@ -1,0 +1,108 @@
+.alinearCentro {
+    text-align: center;
+}
+
+.CuadroNuevaRecetas {
+    display: inline-block;
+    /* display: flex;
+  flex-direction: row; */
+    width: 60vw;
+    margin: 15px 0px;
+}
+
+.NuevaReceta {
+    color: white;
+    font-size: 23px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.CuerpoNuevaReceta {
+    background-color: #fdddbc;
+    text-align: center;
+    /* height: 45vh; */
+    /* position: relative; */
+}
+
+.NRcentrar {
+    position: relative;
+    margin-top: 15px;
+    display: inline-block;
+    width: 50%;
+}
+
+.NRrow {
+    margin-bottom: 15px;
+    display: inline-block;
+    width: 100%;
+    /* overflow: hidden; */
+}
+
+.NRizq {
+    float: left;
+    text-align: left;
+    padding-left: 20px;
+    width: 50%;
+}
+
+.NRder {
+    float: right;
+    text-align: left;
+    width: 50%;
+    border-radius: 30px;
+}
+.NRderB {
+    float: right;
+    text-align: left;
+    width: 50%;
+    border-radius: 30px;
+    background-color: none;
+}
+.NRfull {
+    float: right;
+    text-align: left;
+    width: 100%;
+}
+
+.NRInput {
+    border: none;
+    background-color: #314E46;
+    width: 100%;
+    color: white;
+    border-radius: 25px;
+
+}
+
+.NRlista {
+    color: white;
+    background-color: #314E46;
+    margin-bottom: 0px;
+    list-style-type: none;
+}
+
+.NRbotonDer {
+    text-align: right;
+    width: 98%;
+}
+
+.NRboton {
+    font-style: italic;
+    font-weight: normal;
+    font-size: 14px;
+    border-radius: 30px;
+    width: 110px;
+    height: 34px;
+    background: #314E46;
+    color: white;
+    border-style: none;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    display: inline-block;
+}
+
+textarea {
+    resize: vertical;
+}
