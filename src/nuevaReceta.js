@@ -26,7 +26,7 @@ class NuevaReceta extends React.Component {
     async componentDidMount() {
         this.updateValues();
     }
-    renderCategoria = ({ id, nombre }) => <option key={id} value={nombre}>{nombre}</option>
+    renderCategoria = ({ id, nombre }) => <option key={id} value={id}>{nombre}</option>
 
     render() {
         return (
