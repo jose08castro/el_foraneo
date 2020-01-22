@@ -4,15 +4,19 @@
 
 .Bresultado {
     width: 100%;
-    object-fit: contain;
+    max-width: 182px;
+    height: 182px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1E332B;
+    border-radius: 20px;
 
 }
 
+
 .Bresultado img {
     width: 100%;
-    max-width: 182px;
-    height: 182px;
-    border-radius: 20px;
     object-fit: contain;
     
 
