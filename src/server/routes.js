@@ -36,7 +36,7 @@ router.post('/user/register', urlencodedParser, async (req , res)=> {
         let dbResult = await DB.default.usuarios.register(req.body.nombre, req.body.apellidos, req.body.correo, req.body.usuarioR, req.body.passwordR);
         if(dbResult.errno)
             result = false;
-        res.send({result:result});
+        res.send(dbResult);
     }
     catch(e){
         console.log(e);

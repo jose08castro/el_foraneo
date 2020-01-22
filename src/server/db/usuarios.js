@@ -47,7 +47,7 @@ const register = async (nombre, apellidos, correo, usuario, password) =>{
             let sql = "INSERT INTO usuarios(nombre,apellidos,correo,usuario,password) VALUES (?,?,?,?,?)"
             params = [nombre, apellidos, correo, usuario, password];
             connection.connection.query(sql,params, (err, results) =>{
-                return (err) ?  reject(err) : resolve({result: true});
+                return (err) ?  reject(err) : resolve({id:results.insertId,result: true});
             });
         }
         else

@@ -37,12 +37,14 @@ class App extends React.Component {
       return res.json()
     })
       .then(resp => {
+        console.log(resp.result);
         if (resp.result) {
           const cookie = new Cookies();
           cookie.set('USER', { logged: true, id: resp.id }, { path: '/' });
           ReactDOM.render(<Principal />, document.getElementById('root'));
         }
         else{
+          console.log("entra aqui")
           this.setState({ displayErrors: false, displayErrorsR: false,errorMessage:"Usuario o contraseña invalidos",errorMessageR:""});
         }
       });
@@ -71,6 +73,7 @@ class App extends React.Component {
       return res.json()
     })
       .then(resp => {
+        console.log(resp);
         if (resp.result) {
           const cookie = new Cookies();
           cookie.set('USER', { logged: true, id: resp.id }, { path: '/' });
@@ -107,7 +110,9 @@ class App extends React.Component {
                 <button className="Boton">Iniciar Sesión</button>
               </form>
             </div>
-            <h3 className="ErrorMessage">{errorMessage}</h3>
+            <div className="ErrorMessageL">
+                <h3 className="ErrorMessageT">{errorMessage}</h3>
+            </div>
           </div>
           <div className="CuadroReg">
             <div className="Superior">
@@ -128,7 +133,9 @@ class App extends React.Component {
                 <button className="Boton">Regístrate</button>
               </form>
             </div>
-            <h3 className="ErrorMessage">{errorMessageR}</h3>
+            <div className="ErrorMessageL">
+                <h3 className="ErrorMessageT">{errorMessageR}</h3>
+            </div>
           </div>
         </div>
       </div>
