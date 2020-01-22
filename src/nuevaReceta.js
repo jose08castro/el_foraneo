@@ -7,6 +7,27 @@ import Tabla from './tabla.js';
 import './nuevaReceta.css'
 
 class NuevaReceta extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            categorias: [],
+            categoria: ""
+        };
+    }
+    updateValues = async() =>{
+        let resp = await fetch('/categorias');
+        let categorias = await resp.json();
+        
+        this.setState({
+            categorias: categorias.categorias
+        });
+    }
+    async componentDidMount() {
+        this.updateValues();
+    }
+    renderCategoria = ({ id, nombre }) => <option key={id} value={nombre}>{nombre}</option>
+
     render() {
         return (
             <div className="alinearCentro">
@@ -31,6 +52,16 @@ class NuevaReceta extends React.Component {
                                     <div className="NRizq">Tiempo estimado:</div>
                                     <div className="NRder"><input className="NRInput" type="text" id="inputTiempoEstimado" required></input></div>
                                 </div>
+                                <div className="NRrow">
+                                    <div className="NRizq">Categoria:</div>
+                                    <div className="NRder">
+                                        <select className="DropFiltroPlan" value={this.state.categoria} onChange={(e) => { this.setState({ categoria: e.target.value }) }}>
+                                        <option key={0} value={"0"} hidden disabled>Categoría</option>
+                                        {this.state.categorias.map(this.renderCategoria)}
+                                        </select>
+                                    </div>
+                                </div>
+                                
                                 <div className="NRrow">
                                     <div className="NRizq">Agregar ingrediente:</div>
                                     <div className="NRfull"><Tabla /></div>

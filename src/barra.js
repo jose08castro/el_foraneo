@@ -32,7 +32,7 @@ class Barra extends React.Component {
         let user = cookie.get('USER').id;
         let resp = await fetch(`/notificaciones?id_usuario=${encodeURIComponent(user)}`);
         let notificaciones = await resp.json();
-        this.setState({notificaciones:notificaciones.notificaciones.notificaciones});
+        this.setState({notificaciones:notificaciones.notificaciones.notificaciones.reverse()});
     }
     displNotificacion() {
         this.setState({ render: !this.state.render })
