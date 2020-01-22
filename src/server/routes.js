@@ -212,7 +212,7 @@ router.post('/addReceta', urlencodedParser, async (req, res) => {
             var cantidad = data.Ingredientes[p].cantidad;
             let ingrendientesReceta = await DB.default.recetas.addIngredientesReceta(NumeroReceta, ingrediente, cantidad);
         }
-
+        res.send({result:true});
     }
     catch (e) {
         console.log(e);

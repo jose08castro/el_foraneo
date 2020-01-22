@@ -24,7 +24,7 @@ class Tabla extends React.Component {
             id: id,
             nombre: "",
             precio: "",
-            cantidad: 0
+            cantidad: 1
         }
         
         this.state.ingredientes.push(ingrediente);
