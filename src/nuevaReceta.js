@@ -12,7 +12,8 @@ class NuevaReceta extends React.Component {
         super(props)
         this.state = {
             categorias: [],
-            categoria: ""
+            categoria: "",
+            ingredientes:[]
         };
     }
     updateValues = async() =>{
@@ -27,7 +28,11 @@ class NuevaReceta extends React.Component {
         this.updateValues();
     }
     renderCategoria = ({ id, nombre }) => <option key={id} value={id}>{nombre}</option>
-
+    updateIngredientes = async(ingredientes) =>{
+        this.setState({
+            ingredientes:ingredientes
+        });
+    }
     render() {
         return (
             <div className="alinearCentro">
@@ -64,7 +69,7 @@ class NuevaReceta extends React.Component {
                                 
                                 <div className="NRrow">
                                     <div className="NRizq">Agregar ingrediente:</div>
-                                    <div className="NRfull"><Tabla /></div>
+                                    <div className="NRfull"><Tabla update={this.updateIngredientes}/></div>
                                 </div>
                                 <div className="NRrow">
                                     <div className="NRizq">Pasos para elaborar:</div>

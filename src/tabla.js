@@ -8,21 +8,8 @@ class Tabla extends React.Component {
         //  this.state.ingredientes = [];
         this.state = {};
         this.state.filterText = "";
-        this.state.ingredientes = [
-            {
-                id: 1,
-                nombre: 'Zanahoria',
-                precio: 2000,
-                cantidad: 12,
-
-            }, {
-                id: 2,
-                nombre: 'Naranjas',
-                precio: '2000',
-                cantidad: 15,
-
-            }
-        ];
+        this.state.ingredientes = [];
+        this.state.id=1;
     }
 
     handleRowDel(ingrediente) {
@@ -32,15 +19,16 @@ class Tabla extends React.Component {
     };
 
     handleAddEvent(evt) {
-        var id = 1;
+        var id = this.state.id;
         var ingrediente = {
             id: id,
             nombre: "",
             precio: "",
             cantidad: 0
         }
+        
         this.state.ingredientes.push(ingrediente);
-        this.setState(this.state.ingredientes);
+        this.setState({ingredientes:this.state.ingredientes, id:id+1});
     }
 
     handleIngredienteTable(evt) {
@@ -61,6 +49,7 @@ class Tabla extends React.Component {
             return ingrediente;
         });
         this.setState({ ingredientes: nuevoingredientes });
+        this.props.update(nuevoingredientes);
         //  console.log(this.state.ingredientes);
     };
 

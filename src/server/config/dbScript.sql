@@ -305,15 +305,12 @@ COMMIT;
 
 DELIMITER $$
 
-CREATE PROCEDURE sp_get_plan_recetas(IN pplato_min   INT, 
-                                     IN pplato_max   INT, 
-                                     IN categoria_id INT, 
-                                     IN cantidad     INT)
 begin 
-  CREATE temporary TABLE temptable 
+  CREATE temporary TABLE if not exists temptable 
     ( 
        id           INT,
-       id_categoria INT, 
+       id_categoria INT,
+       id_usuario   INT, 
        precio       INT, 
        tiempo       INT, 
        nombre       VARCHAR(64),
@@ -321,10 +318,12 @@ begin
        usuario      VARCHAR(128),
        pasos        TEXT, 
        imagen       LONGBLOB);
+    DELETE FROM temptable;
     WHILE cantidad > 0 do 
     INSERT INTO temptable 
     SELECT r.id,
            r.id_categoria, 
+           r.id_usuario, 
            precios.precio, 
            r.tiempo, 
            r.nombre AS nombre, 
@@ -346,8 +345,7 @@ begin
                           ON ingxrec.id_ingrediente = ing.id 
                  GROUP  BY ( rec.id )) AS precios 
              ON precios.id = r.id 
-    WHERE  precios.precio >= pplato_min 
-           AND precios.precio <= pplato_max 
+    WHERE precios.precio <= pplato_max 
            AND r.id_categoria = categoria_id 
     ORDER  BY Rand() 
     LIMIT  1; 
