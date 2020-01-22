@@ -1,3 +1,8 @@
+h3{
+    color: darkred;
+    font-weight: bold;
+    font-size: 26px;
+}
 .alinearCentro {
     text-align: center;
 }

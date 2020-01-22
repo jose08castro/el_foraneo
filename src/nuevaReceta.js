@@ -8,7 +8,6 @@ import Barra from './barra.js';
 import Tabla from './tabla.js';
 
 import './nuevaReceta.css'
-import { getElementError } from '@testing-library/react';
 
 class NuevaReceta extends React.Component {
 
@@ -17,7 +16,8 @@ class NuevaReceta extends React.Component {
         this.state = {
             categorias: [],
             categoria: "",
-            ingredientes: []
+            ingredientes: [],
+            errorMessage: ""
         };
         this.NuevaReceta = this.NuevaReceta.bind(this);
     }
@@ -47,37 +47,45 @@ class NuevaReceta extends React.Component {
     NuevaReceta = async (event) => {
         event.preventDefault();
         event.persist();
-        const cookie = new Cookies();
-        let user = cookie.get('USER').id;
-        var nombre = document.getElementById('inputNombreReceta').value;
-        var tiempo = document.getElementById('inputTiempoEstimado').value;
-        var ingredientes = this.state.ingredientes;
-        var pasos = document.getElementById('inputPasos').value;
-        var file = document.getElementById('inputAgregarImg').files[0];
-        var imagen = await this.toBase64(file);
-        var categoria = document.getElementById('Cat').value;
-        console.log(imagen);
+        if (!event.target.checkValidity() || this.state.ingredientes.length === 0) {
+            this.setState({ errorMessage: "Por favor llene todos los campos y agregue por lo menos un ingrediente." });
+            setTimeout(function () {
+                this.setState({ errorMessage: "" });
+            }.bind(this), 3000);
+        }
+        else {
+            console.log("Valida");
+            const cookie = new Cookies();
+            let user = cookie.get('USER').id;
+            var nombre = document.getElementById('inputNombreReceta').value;
+            var tiempo = document.getElementById('inputTiempoEstimado').value;
+            var ingredientes = this.state.ingredientes;
+            var pasos = document.getElementById('inputPasos').value;
+            var file = document.getElementById('inputAgregarImg').files[0];
+            var imagen = await this.toBase64(file);
+            var categoria = document.getElementById('Cat').value;
+            const formData = new FormData(event.target);
+            const data = new URLSearchParams(formData);
 
-        const formData = new FormData(event.target);
-        const data = new URLSearchParams(formData);
-
-        var datos = {
-            Nombre: nombre,
-            Tiempo: tiempo,
-            Ingredientes: ingredientes,
-            Pasos: pasos,
-            Imagen: imagen,
-            Categoria: categoria,
-            Usuario: user
-        };
-        data.append("datos", JSON.stringify(datos));
-        await fetch('/addReceta', {
-            method: 'POST',
-            body: data
-        }).then(res => {
+            var datos = {
+                Nombre: nombre,
+                Tiempo: tiempo,
+                Ingredientes: ingredientes,
+                Pasos: pasos,
+                Imagen: imagen,
+                Categoria: categoria,
+                Usuario: user
+            };
+            data.append("datos", JSON.stringify(datos));
+            await fetch('/addReceta', {
+                method: 'POST',
+                body: data
+            }).then(res => {
+                return res.json()
+            })
             ReactDOM.render(<Principal />, document.getElementById('root'));
-            return res.json()
-        })
+
+        }
     }
 
 
@@ -86,6 +94,9 @@ class NuevaReceta extends React.Component {
         return (
             <div className="alinearCentro">
                 <Barra />
+                <h3>
+                    {this.state.errorMessage}
+                </h3>
                 <div className="CuadroNuevaRecetas">
                     <form noValidate onSubmit={this.NuevaReceta}>
                         <div className="HeadReceta">
